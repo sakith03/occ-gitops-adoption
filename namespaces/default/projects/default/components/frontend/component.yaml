@@ -1,0 +1,30 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    openchoreo.dev/display-name: frontend
+  labels:
+    openchoreo.dev/project: default
+  name: frontend
+  namespace: default
+spec:
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/web-application
+  owner:
+    projectName: default
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: dockerfile-builder
+    parameters:
+      buildArgs: []
+      buildEnv: []
+      docker:
+        context: /frontend
+        filePath: /frontend/Dockerfile
+      repository:
+        appPath: /frontend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/student-workload-management-system.git

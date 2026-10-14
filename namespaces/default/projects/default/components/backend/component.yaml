@@ -1,0 +1,28 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  labels:
+    openchoreo.dev/project: default
+  name: backend
+  namespace: default
+spec:
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/service
+  owner:
+    projectName: default
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: dockerfile-builder
+    parameters:
+      buildArgs: []
+      buildEnv: []
+      docker:
+        context: /backend
+        filePath: /backend/src/StudentWorkload.API
+      repository:
+        appPath: /backend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/student-workload-management-system.git
