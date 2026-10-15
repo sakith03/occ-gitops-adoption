@@ -21,7 +21,7 @@ spec:
       buildArgs: []
       buildEnv: []
       docker:
-        context: /backend/src/StudentWorkload.API
+        context: /backend
         filePath: /backend/src/StudentWorkload.API
       repository:
         appPath: /backend
