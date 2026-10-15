@@ -5,9 +5,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./namespaces/<ns>/platform
+  path: ./namespaces/default/platform
   prune: false
-  targetNamespace: <ns>
+  targetNamespace: default
   sourceRef:
     kind: GitRepository
     name: openchoreo-gitops
@@ -19,9 +19,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./namespaces/<ns>/projects
+  path: ./namespaces/default/projects
   prune: false
-  targetNamespace: <ns>
+  targetNamespace: default
   sourceRef:
     kind: GitRepository
     name: openchoreo-gitops
