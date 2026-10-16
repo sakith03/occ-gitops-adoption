@@ -1,0 +1,19 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"Project","metadata":{"annotations":{"openchoreo.dev/description":"Your first project to get started","openchoreo.dev/display-name":"Default Project"},"labels":{"openchoreo.dev/name":"default"},"name":"default","namespace":"default"},"spec":{"deploymentPipelineRef":{"name":"default"},"type":{"kind":"ClusterProjectType","name":"default"}}}
+    openchoreo.dev/description: Your first project to get started
+    openchoreo.dev/display-name: Default Project
+  labels:
+    openchoreo.dev/name: default
+  name: default
+  namespace: default
+spec:
+  deploymentPipelineRef:
+    kind: DeploymentPipeline
+    name: default
+  type:
+    kind: ClusterProjectType
+    name: default
