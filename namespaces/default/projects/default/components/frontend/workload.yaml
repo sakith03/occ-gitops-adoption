@@ -1,0 +1,28 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    openchoreo.dev/component: frontend
+    openchoreo.dev/project: default
+  name: frontend-workload
+  namespace: default
+spec:
+  container:
+    env:
+    - key: API_URL
+      value: https://backend-loadmate-b3ezg2behsgyerbw.centralindia-01.azurewebsites.net
+    image: host.k3d.internal:10082/default-default-frontend:v1-ba160e4d
+  endpoints:
+    endpoint-1:
+      port: 3000
+      type: HTTP
+      visibility:
+      - external
+  owner:
+    componentName: frontend
+    projectName: default
+  source:
+    authoredAt: "2026-04-20T16:53:12Z"
+    branch: main
+    commit: ba160e4d64aa5887b6885828821388e343590729
+    repository: https://github.com/sakith03/student-workload-management-system.git
