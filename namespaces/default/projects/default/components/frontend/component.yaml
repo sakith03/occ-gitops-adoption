@@ -4,8 +4,6 @@ metadata:
   annotations:
     openchoreo.dev/display-name: frontend
   labels:
-    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
-    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/project: default
   name: frontend
   namespace: default
