@@ -1,0 +1,144 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterTrait
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterTrait","metadata":{"annotations":{},"name":"horizontal-pod-autoscaler"},"spec":{"creates":[{"includeWhen":"${environmentConfigs.enabled}","template":{"apiVersion":"autoscaling/v2","kind":"HorizontalPodAutoscaler","metadata":{"labels":"${metadata.labels}","name":"${metadata.name}-${trait.instanceName}","namespace":"${metadata.namespace}"},"spec":{"maxReplicas":"${has(environmentConfigs.maxReplicas) ? environmentConfigs.maxReplicas : parameters.replicas.max}\n","metrics":"${[\n  {\n    \"type\": \"Resource\",\n    \"resource\": {\n      \"name\": \"cpu\",\n      \"target\": {\"type\": \"Utilization\", \"averageUtilization\": parameters.targetUtilization.cpu}\n    }\n  }\n] + (has(parameters.targetUtilization.memory) ? [\n  {\n    \"type\": \"Resource\",\n    \"resource\": {\n      \"name\": \"memory\",\n      \"target\": {\"type\": \"Utilization\", \"averageUtilization\": parameters.targetUtilization.memory}\n    }\n  }\n] : [])}\n","minReplicas":"${has(environmentConfigs.minReplicas) ? environmentConfigs.minReplicas : parameters.replicas.min}\n","scaleTargetRef":{"apiVersion":"apps/v1","kind":"Deployment","name":"${metadata.name}"}}}}],"environmentConfigs":{"openAPIV3Schema":{"properties":{"enabled":{"default":true,"description":"Controls whether autoscaling is active in this environment. When disabled, no HorizontalPodAutoscaler is created.","type":"boolean","x-openchoreo-backstage-portal":{"ui:widget":"radio"}},"maxReplicas":{"description":"Optional per-environment override for the upper replica bound.","minimum":1,"type":"integer","x-openchoreo-backstage-portal":{"ui:placeholder":"Defaults to the value set in parameters"}},"minReplicas":{"description":"Optional per-environment override for the lower replica bound.","minimum":1,"type":"integer","x-openchoreo-backstage-portal":{"ui:placeholder":"Defaults to the value set in parameters"}}},"type":"object","x-openchoreo-backstage-portal":{"ui:order":["enabled","minReplicas","maxReplicas"]}}},"parameters":{"openAPIV3Schema":{"properties":{"replicas":{"default":{},"properties":{"max":{"default":10,"minimum":1,"title":"Maximum","type":"integer"},"min":{"default":1,"minimum":1,"title":"Minimum","type":"integer"}},"required":["min","max"],"title":"Replicas","type":"object","x-openchoreo-backstage-portal":{"ui:order":["min","max"]}},"targetUtilization":{"default":{},"description":"Target utilization levels the autoscaler maintains by adding or removing replicas.","properties":{"cpu":{"default":80,"description":"Average CPU across pods, as a percentage of the pod's CPU request.","maximum":100,"minimum":1,"title":"CPU","type":"integer"},"memory":{"description":"Average memory across pods, as a percentage of the pod's memory request. Optional; when unset, memory is not used for scaling.","maximum":100,"minimum":1,"title":"Memory","type":"integer"}},"title":"Target utilization","type":"object","x-openchoreo-backstage-portal":{"ui:order":["cpu","memory"]}}},"type":"object","x-openchoreo-backstage-portal":{"ui:order":["replicas","targetUtilization"]}}},"patches":[{"operations":[{"op":"remove","path":"/spec/replicas"}],"target":{"group":"apps","kind":"Deployment","version":"v1","where":"${environmentConfigs.enabled}"}}],"validations":[{"message":"maxReplicas must be greater than or equal to minReplicas.","rule":"${(has(environmentConfigs.maxReplicas) ? environmentConfigs.maxReplicas : parameters.replicas.max) \u003e= (has(environmentConfigs.minReplicas) ? environmentConfigs.minReplicas : parameters.replicas.min)}"}]}}
+  name: horizontal-pod-autoscaler
+spec:
+  creates:
+  - includeWhen: ${environmentConfigs.enabled}
+    targetPlane: dataplane
+    template:
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        labels: ${metadata.labels}
+        name: ${metadata.name}-${trait.instanceName}
+        namespace: ${metadata.namespace}
+      spec:
+        maxReplicas: |
+          ${has(environmentConfigs.maxReplicas) ? environmentConfigs.maxReplicas : parameters.replicas.max}
+        metrics: |
+          ${[
+            {
+              "type": "Resource",
+              "resource": {
+                "name": "cpu",
+                "target": {"type": "Utilization", "averageUtilization": parameters.targetUtilization.cpu}
+              }
+            }
+          ] + (has(parameters.targetUtilization.memory) ? [
+            {
+              "type": "Resource",
+              "resource": {
+                "name": "memory",
+                "target": {"type": "Utilization", "averageUtilization": parameters.targetUtilization.memory}
+              }
+            }
+          ] : [])}
+        minReplicas: |
+          ${has(environmentConfigs.minReplicas) ? environmentConfigs.minReplicas : parameters.replicas.min}
+        scaleTargetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: ${metadata.name}
+  environmentConfigs:
+    openAPIV3Schema:
+      properties:
+        enabled:
+          default: true
+          description: Controls whether autoscaling is active in this environment.
+            When disabled, no HorizontalPodAutoscaler is created.
+          type: boolean
+          x-openchoreo-backstage-portal:
+            ui:widget: radio
+        maxReplicas:
+          description: Optional per-environment override for the upper replica bound.
+          minimum: 1
+          type: integer
+          x-openchoreo-backstage-portal:
+            ui:placeholder: Defaults to the value set in parameters
+        minReplicas:
+          description: Optional per-environment override for the lower replica bound.
+          minimum: 1
+          type: integer
+          x-openchoreo-backstage-portal:
+            ui:placeholder: Defaults to the value set in parameters
+      type: object
+      x-openchoreo-backstage-portal:
+        ui:order:
+        - enabled
+        - minReplicas
+        - maxReplicas
+  parameters:
+    openAPIV3Schema:
+      properties:
+        replicas:
+          default: {}
+          properties:
+            max:
+              default: 10
+              minimum: 1
+              title: Maximum
+              type: integer
+            min:
+              default: 1
+              minimum: 1
+              title: Minimum
+              type: integer
+          required:
+          - min
+          - max
+          title: Replicas
+          type: object
+          x-openchoreo-backstage-portal:
+            ui:order:
+            - min
+            - max
+        targetUtilization:
+          default: {}
+          description: Target utilization levels the autoscaler maintains by adding
+            or removing replicas.
+          properties:
+            cpu:
+              default: 80
+              description: Average CPU across pods, as a percentage of the pod's CPU
+                request.
+              maximum: 100
+              minimum: 1
+              title: CPU
+              type: integer
+            memory:
+              description: Average memory across pods, as a percentage of the pod's
+                memory request. Optional; when unset, memory is not used for scaling.
+              maximum: 100
+              minimum: 1
+              title: Memory
+              type: integer
+          title: Target utilization
+          type: object
+          x-openchoreo-backstage-portal:
+            ui:order:
+            - cpu
+            - memory
+      type: object
+      x-openchoreo-backstage-portal:
+        ui:order:
+        - replicas
+        - targetUtilization
+  patches:
+  - operations:
+    - op: remove
+      path: /spec/replicas
+    target:
+      group: apps
+      kind: Deployment
+      version: v1
+      where: ${environmentConfigs.enabled}
+    targetPlane: dataplane
+  validations:
+  - message: maxReplicas must be greater than or equal to minReplicas.
+    rule: '${(has(environmentConfigs.maxReplicas) ? environmentConfigs.maxReplicas
+      : parameters.replicas.max) >= (has(environmentConfigs.minReplicas) ? environmentConfigs.minReplicas
+      : parameters.replicas.min)}'

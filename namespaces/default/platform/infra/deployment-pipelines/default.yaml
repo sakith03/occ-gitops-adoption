@@ -1,0 +1,27 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: DeploymentPipeline
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"DeploymentPipeline","metadata":{"annotations":{"openchoreo.dev/description":"Standard deployment pipeline with dev, staging, and prod environments","openchoreo.dev/display-name":"Default Pipeline"},"labels":{"openchoreo.dev/name":"default"},"name":"default","namespace":"default"},"spec":{"promotionPaths":[{"sourceEnvironmentRef":{"name":"development"},"targetEnvironmentRefs":[{"name":"staging"}]},{"sourceEnvironmentRef":{"name":"staging"},"targetEnvironmentRefs":[{"name":"production"}]}]}}
+    openchoreo.dev/description: Standard deployment pipeline with dev, staging, and
+      prod environments
+    openchoreo.dev/display-name: Default Pipeline
+  labels:
+    openchoreo.dev/name: default
+  name: default
+  namespace: default
+spec:
+  promotionPaths:
+  - sourceEnvironmentRef:
+      kind: Environment
+      name: development
+    targetEnvironmentRefs:
+    - kind: Environment
+      name: staging
+  - sourceEnvironmentRef:
+      kind: Environment
+      name: staging
+    targetEnvironmentRefs:
+    - kind: Environment
+      name: production

@@ -1,0 +1,129 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterTrait
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterTrait","metadata":{"annotations":{},"name":"persistent-volume-claim"},"spec":{"creates":[{"includeWhen":"${environmentConfigs.enabled}","template":{"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"labels":"${metadata.labels}","name":"${metadata.name}-${trait.instanceName}","namespace":"${metadata.namespace}"},"spec":{"accessModes":["${parameters.accessMode}"],"resources":{"requests":{"storage":"${environmentConfigs.size}"}},"storageClassName":"${has(environmentConfigs.storageClass) \u0026\u0026 environmentConfigs.storageClass != '' ? environmentConfigs.storageClass : oc_omit()}\n"}}}],"environmentConfigs":{"openAPIV3Schema":{"properties":{"enabled":{"default":true,"description":"Controls whether persistent storage is provisioned in this environment. When disabled, no PersistentVolumeClaim is created and the volume is not mounted.","type":"boolean","x-openchoreo-backstage-portal":{"ui:widget":"radio"}},"size":{"default":"1Gi","description":"Requested storage capacity for the volume (e.g. 1Gi, 10Gi).","type":"string"},"storageClass":{"description":"Optional storage class for the volume. When unset, the cluster's default storage class is used.","type":"string","x-openchoreo-backstage-portal":{"ui:placeholder":"Defaults to the cluster's default storage class"}}},"type":"object","x-openchoreo-backstage-portal":{"ui:order":["enabled","size","storageClass"]}}},"parameters":{"openAPIV3Schema":{"properties":{"accessMode":{"default":"ReadWriteOnce","enum":["ReadWriteOnce","ReadOnlyMany","ReadWriteMany","ReadWriteOncePod"],"title":"Access mode","type":"string"},"containerName":{"default":"main","description":"Name of the container the volume is mounted into. Defaults to 'main'.","title":"Container name","type":"string"},"mountPath":{"description":"Absolute path inside the container where the volume is mounted (e.g. /data).","title":"Mount path","type":"string"},"readOnly":{"default":false,"description":"Mounts the volume as read-only in the container.","title":"Read only","type":"boolean"},"subPath":{"description":"Optional path within the volume to mount instead of its root.","title":"Sub path","type":"string","x-openchoreo-backstage-portal":{"ui:placeholder":"Mounts the volume root when empty"}}},"required":["mountPath"],"type":"object","x-openchoreo-backstage-portal":{"ui:order":["containerName","mountPath","subPath","accessMode","readOnly"]}}},"patches":[{"operations":[{"op":"add","path":"/spec/template/spec/volumes/-","value":{"name":"${trait.instanceName}","persistentVolumeClaim":{"claimName":"${metadata.name}-${trait.instanceName}"}}}],"target":{"group":"apps","kind":"Deployment","version":"v1","where":"${environmentConfigs.enabled}"}},{"operations":[{"op":"add","path":"/spec/template/spec/containers/[?(@.name=='${parameters.containerName}')]/volumeMounts/-","value":{"mountPath":"${parameters.mountPath}","name":"${trait.instanceName}","readOnly":"${parameters.readOnly}","subPath":"${has(parameters.subPath) ? parameters.subPath : oc_omit()}\n"}}],"target":{"group":"apps","kind":"Deployment","version":"v1","where":"${environmentConfigs.enabled}"}}],"validations":[{"message":"mountPath must be an absolute path starting with '/'.","rule":"${parameters.mountPath.startsWith('/')}"}]}}
+  name: persistent-volume-claim
+spec:
+  creates:
+  - includeWhen: ${environmentConfigs.enabled}
+    targetPlane: dataplane
+    template:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        labels: ${metadata.labels}
+        name: ${metadata.name}-${trait.instanceName}
+        namespace: ${metadata.namespace}
+      spec:
+        accessModes:
+        - ${parameters.accessMode}
+        resources:
+          requests:
+            storage: ${environmentConfigs.size}
+        storageClassName: |
+          ${has(environmentConfigs.storageClass) && environmentConfigs.storageClass != '' ? environmentConfigs.storageClass : oc_omit()}
+  environmentConfigs:
+    openAPIV3Schema:
+      properties:
+        enabled:
+          default: true
+          description: Controls whether persistent storage is provisioned in this
+            environment. When disabled, no PersistentVolumeClaim is created and the
+            volume is not mounted.
+          type: boolean
+          x-openchoreo-backstage-portal:
+            ui:widget: radio
+        size:
+          default: 1Gi
+          description: Requested storage capacity for the volume (e.g. 1Gi, 10Gi).
+          type: string
+        storageClass:
+          description: Optional storage class for the volume. When unset, the cluster's
+            default storage class is used.
+          type: string
+          x-openchoreo-backstage-portal:
+            ui:placeholder: Defaults to the cluster's default storage class
+      type: object
+      x-openchoreo-backstage-portal:
+        ui:order:
+        - enabled
+        - size
+        - storageClass
+  parameters:
+    openAPIV3Schema:
+      properties:
+        accessMode:
+          default: ReadWriteOnce
+          enum:
+          - ReadWriteOnce
+          - ReadOnlyMany
+          - ReadWriteMany
+          - ReadWriteOncePod
+          title: Access mode
+          type: string
+        containerName:
+          default: main
+          description: Name of the container the volume is mounted into. Defaults
+            to 'main'.
+          title: Container name
+          type: string
+        mountPath:
+          description: Absolute path inside the container where the volume is mounted
+            (e.g. /data).
+          title: Mount path
+          type: string
+        readOnly:
+          default: false
+          description: Mounts the volume as read-only in the container.
+          title: Read only
+          type: boolean
+        subPath:
+          description: Optional path within the volume to mount instead of its root.
+          title: Sub path
+          type: string
+          x-openchoreo-backstage-portal:
+            ui:placeholder: Mounts the volume root when empty
+      required:
+      - mountPath
+      type: object
+      x-openchoreo-backstage-portal:
+        ui:order:
+        - containerName
+        - mountPath
+        - subPath
+        - accessMode
+        - readOnly
+  patches:
+  - operations:
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        name: ${trait.instanceName}
+        persistentVolumeClaim:
+          claimName: ${metadata.name}-${trait.instanceName}
+    target:
+      group: apps
+      kind: Deployment
+      version: v1
+      where: ${environmentConfigs.enabled}
+    targetPlane: dataplane
+  - operations:
+    - op: add
+      path: /spec/template/spec/containers/[?(@.name=='${parameters.containerName}')]/volumeMounts/-
+      value:
+        mountPath: ${parameters.mountPath}
+        name: ${trait.instanceName}
+        readOnly: ${parameters.readOnly}
+        subPath: |
+          ${has(parameters.subPath) ? parameters.subPath : oc_omit()}
+    target:
+      group: apps
+      kind: Deployment
+      version: v1
+      where: ${environmentConfigs.enabled}
+    targetPlane: dataplane
+  validations:
+  - message: mountPath must be an absolute path starting with '/'.
+    rule: ${parameters.mountPath.startsWith('/')}

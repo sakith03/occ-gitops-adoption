@@ -1,0 +1,32 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterObservabilityPlane
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterObservabilityPlane","metadata":{"annotations":{},"name":"default"},"spec":{"clusterAgent":{"clientCA":{"value":"-----BEGIN CERTIFICATE-----\nMIIDATCCAemgAwIBAgIUITBzBWE2lNrJY+rsqNpRr5bCoDMwDQYJKoZIhvcNAQEL\nBQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y\nNjEwMDYwNDU0MzJaFw0yNzAxMDQwNDU0MzJaMCcxEzARBgNVBAoTCk9wZW5DaG9y\nZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCpa4+k0vzc243WBKRTfADkm3nFO9Y51NZVCtipD86QtrCfe6Y76lIVDQf8\nUAY7i5dno1Aouh5ifPxBDaAfe0DLBEH3/8DPSLo0y+5bR7HQimdLc2pXBhJ1V8Xt\n591/zRrwUz2TziueSzy7l+B98wWOA0MAjGzguDMjTuvIkMl2c5jsKcwzkJ+7iqp5\nUEwVzYKUCv5FhXdiOFZA79ALdZTl0FHeYSQboZwpeLVJ4Euo5T3fAOmrZyZ6MC0M\naeAhExfsaaTLzMXqwhQCMRg8prC+I7FZzA86+iwT1m8icwB4FcBhqnnHtX/zRLKL\n8VsbRu2VTjRJGcEizEiPYhdzjYojAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF\nBwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAGf+EjTSRUmY+2Cp\n8d6og/uwMSmLPEv21/+nyDthV483oxsnCJTNUNap2NBRpVHOVzv1VyhJyl+dOuN9\nlR4lEYHfBKbJpeOKMTLl8RRJTzko20Y1FbSBouSIwMy3eCbk8PwEjFjfU6E1gFAI\ninXHiPxxw2tiKZIJNNrL2opP/Adr7a1QA3Z6c5mGlyQOhVP4OnVG8tIlwnz+8ACO\nbAeI8WYuPSZiupHMtCpDNmKO6CYw2dmSGmrTMH97CgKU9bBqKSmJzMkFqLPNUX9x\ngiGS2N8phkhRDvwGuEE2txoqtA5VuTTEOeb98EdpZICC1UjXe0N8ZOKmGed8R8wC\nmmhjMpA=\n-----END CERTIFICATE-----\n"}},"observerURL":"http://observer.openchoreo.localhost:11080","planeID":"default"}}
+  name: default
+spec:
+  clusterAgent:
+    clientCA:
+      value: |
+        -----BEGIN CERTIFICATE-----
+        MIIDATCCAemgAwIBAgIUITBzBWE2lNrJY+rsqNpRr5bCoDMwDQYJKoZIhvcNAQEL
+        BQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y
+        NjEwMDYwNDU0MzJaFw0yNzAxMDQwNDU0MzJaMCcxEzARBgNVBAoTCk9wZW5DaG9y
+        ZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+        AoIBAQCpa4+k0vzc243WBKRTfADkm3nFO9Y51NZVCtipD86QtrCfe6Y76lIVDQf8
+        UAY7i5dno1Aouh5ifPxBDaAfe0DLBEH3/8DPSLo0y+5bR7HQimdLc2pXBhJ1V8Xt
+        591/zRrwUz2TziueSzy7l+B98wWOA0MAjGzguDMjTuvIkMl2c5jsKcwzkJ+7iqp5
+        UEwVzYKUCv5FhXdiOFZA79ALdZTl0FHeYSQboZwpeLVJ4Euo5T3fAOmrZyZ6MC0M
+        aeAhExfsaaTLzMXqwhQCMRg8prC+I7FZzA86+iwT1m8icwB4FcBhqnnHtX/zRLKL
+        8VsbRu2VTjRJGcEizEiPYhdzjYojAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF
+        BwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAGf+EjTSRUmY+2Cp
+        8d6og/uwMSmLPEv21/+nyDthV483oxsnCJTNUNap2NBRpVHOVzv1VyhJyl+dOuN9
+        lR4lEYHfBKbJpeOKMTLl8RRJTzko20Y1FbSBouSIwMy3eCbk8PwEjFjfU6E1gFAI
+        inXHiPxxw2tiKZIJNNrL2opP/Adr7a1QA3Z6c5mGlyQOhVP4OnVG8tIlwnz+8ACO
+        bAeI8WYuPSZiupHMtCpDNmKO6CYw2dmSGmrTMH97CgKU9bBqKSmJzMkFqLPNUX9x
+        giGS2N8phkhRDvwGuEE2txoqtA5VuTTEOeb98EdpZICC1UjXe0N8ZOKmGed8R8wC
+        mmhjMpA=
+        -----END CERTIFICATE-----
+  observerURL: http://observer.openchoreo.localhost:11080
+  planeID: default

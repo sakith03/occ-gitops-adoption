@@ -1,0 +1,29 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterAuthzRole
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterAuthzRole","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"openchoreo-control-plane","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"openchoreo-control-plane","app.kubernetes.io/part-of":"openchoreo","app.kubernetes.io/version":"v1.3.1","helm.sh/chart":"openchoreo-control-plane-1.3.1","openchoreo.io/bootstrap":"true"},"name":"namespace-reader"},"spec":{"actions":["namespace:view","environment:view","deploymentpipeline:view","dataplane:view","workflowplane:view","observabilityplane:view","componenttype:view","resourcetype:view","projecttype:view","trait:view","workflow:view","secretreference:view"]}}
+  labels:
+    app.kubernetes.io/instance: openchoreo-control-plane
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: openchoreo-control-plane
+    app.kubernetes.io/part-of: openchoreo
+    app.kubernetes.io/version: v1.3.1
+    helm.sh/chart: openchoreo-control-plane-1.3.1
+    openchoreo.io/bootstrap: "true"
+  name: namespace-reader
+spec:
+  actions:
+  - namespace:view
+  - environment:view
+  - deploymentpipeline:view
+  - dataplane:view
+  - workflowplane:view
+  - observabilityplane:view
+  - componenttype:view
+  - resourcetype:view
+  - projecttype:view
+  - trait:view
+  - workflow:view
+  - secretreference:view

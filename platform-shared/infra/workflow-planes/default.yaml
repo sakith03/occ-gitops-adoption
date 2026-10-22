@@ -1,0 +1,36 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterWorkflowPlane
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterWorkflowPlane","metadata":{"annotations":{},"name":"default"},"spec":{"clusterAgent":{"clientCA":{"value":"-----BEGIN CERTIFICATE-----\nMIIDATCCAemgAwIBAgIUZceqLHaTUV2Yt9E53no9JTF8zZIwDQYJKoZIhvcNAQEL\nBQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y\nNjEwMDYwNDU0MDFaFw0yNzAxMDQwNDU0MDFaMCcxEzARBgNVBAoTCk9wZW5DaG9y\nZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCncWQXWcGNpqZ7O+o+4MLIOmV0xXKABm7FrrMkLIj+ohH8Z+SdVo8iJ/kb\nlDxP+kFZsXhLO3Jbw4mR4OgFwWuSOpImLp8841bHhsNtsrwjWEz/K4F6CalAsRfh\n7fJk50fci0mDBmj4rnZ8ro00JGur769vfJ5S/tRoQG4yfOC5R3R4vC4/uTF/4mr6\n1lQ/cg0aJLQ4+I9P7d+kKw90fF9t2SRt7jXVvoUQqXXBr/L4+6yp0GLq6TQWim/t\neCdFy/06kJ7BThgrNaH3tN5n2fD5sV6ppd32wAVL1LF9kHlnMbhOrd7PF6dvpJHe\nLYL6bkWdUJUnG+rULlb4nHfyKMDHAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF\nBwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAJm7KlwCYn7hUas+\nw+skOmyODLzfiqpwGye62YjGqw39byv4emykPMVuqCDg7KUlffUW0l7EEZAQm1Zc\na6V7YEijM5fXNuGk1LcLgjaAwet2qG2pAEmk44/83zpmdpHoz+4IVr0qGkmtOuud\n/+YWXUCOkEQkzZT8OdfHr+QalpHnj131fYpNjhPCLyO+hs27SImerUCEOsCde5EG\n1z/DqhFWWql4YeuQDlO6Rj+ojkREdddV41/qFDvBJ/LQwGQ8C6zLnXwdM5rvDzj0\nP6Ush1xRjFF1XwfDkpx/fjpo8sakiAkI+P6+gnbyibcHRR0f44JFKcOqQ/SgKq5d\nhorvP2o=\n-----END CERTIFICATE-----\n"}},"planeID":"default","secretStoreRef":{"name":"default"}}}
+  name: default
+spec:
+  clusterAgent:
+    clientCA:
+      value: |
+        -----BEGIN CERTIFICATE-----
+        MIIDATCCAemgAwIBAgIUZceqLHaTUV2Yt9E53no9JTF8zZIwDQYJKoZIhvcNAQEL
+        BQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y
+        NjEwMDYwNDU0MDFaFw0yNzAxMDQwNDU0MDFaMCcxEzARBgNVBAoTCk9wZW5DaG9y
+        ZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+        AoIBAQCncWQXWcGNpqZ7O+o+4MLIOmV0xXKABm7FrrMkLIj+ohH8Z+SdVo8iJ/kb
+        lDxP+kFZsXhLO3Jbw4mR4OgFwWuSOpImLp8841bHhsNtsrwjWEz/K4F6CalAsRfh
+        7fJk50fci0mDBmj4rnZ8ro00JGur769vfJ5S/tRoQG4yfOC5R3R4vC4/uTF/4mr6
+        1lQ/cg0aJLQ4+I9P7d+kKw90fF9t2SRt7jXVvoUQqXXBr/L4+6yp0GLq6TQWim/t
+        eCdFy/06kJ7BThgrNaH3tN5n2fD5sV6ppd32wAVL1LF9kHlnMbhOrd7PF6dvpJHe
+        LYL6bkWdUJUnG+rULlb4nHfyKMDHAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF
+        BwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAJm7KlwCYn7hUas+
+        w+skOmyODLzfiqpwGye62YjGqw39byv4emykPMVuqCDg7KUlffUW0l7EEZAQm1Zc
+        a6V7YEijM5fXNuGk1LcLgjaAwet2qG2pAEmk44/83zpmdpHoz+4IVr0qGkmtOuud
+        /+YWXUCOkEQkzZT8OdfHr+QalpHnj131fYpNjhPCLyO+hs27SImerUCEOsCde5EG
+        1z/DqhFWWql4YeuQDlO6Rj+ojkREdddV41/qFDvBJ/LQwGQ8C6zLnXwdM5rvDzj0
+        P6Ush1xRjFF1XwfDkpx/fjpo8sakiAkI+P6+gnbyibcHRR0f44JFKcOqQ/SgKq5d
+        horvP2o=
+        -----END CERTIFICATE-----
+  observabilityPlaneRef:
+    kind: ClusterObservabilityPlane
+    name: default
+  planeID: default
+  secretStoreRef:
+    name: default

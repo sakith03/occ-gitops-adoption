@@ -1,0 +1,46 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterAuthzRole
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterAuthzRole","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"openchoreo-control-plane","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"openchoreo-control-plane","app.kubernetes.io/part-of":"openchoreo","app.kubernetes.io/version":"v1.3.1","helm.sh/chart":"openchoreo-control-plane-1.3.1","openchoreo.io/bootstrap":"true","openchoreo.io/system":"true"},"name":"backstage-catalog-reader"},"spec":{"actions":["component:view","componenttype:view","resource:view","resourcerelease:view","projectrelease:view","resourcereleasebinding:view","projectreleasebinding:view","resourcetype:view","projecttype:view","namespace:view","project:view","dataplane:view","environment:view","trait:view","workload:view","workflowplane:view","clusterworkflowplane:view","workflow:view","deploymentpipeline:view","observabilityplane:view","clusterobservabilityplane:view","clusterdataplane:view","clustercomponenttype:view","clusterresourcetype:view","clusterprojecttype:view","clustertrait:view","clusterworkflow:view","observabilityalertsnotificationchannel:view"]}}
+  labels:
+    app.kubernetes.io/instance: openchoreo-control-plane
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: openchoreo-control-plane
+    app.kubernetes.io/part-of: openchoreo
+    app.kubernetes.io/version: v1.3.1
+    helm.sh/chart: openchoreo-control-plane-1.3.1
+    openchoreo.io/bootstrap: "true"
+    openchoreo.io/system: "true"
+  name: backstage-catalog-reader
+spec:
+  actions:
+  - component:view
+  - componenttype:view
+  - resource:view
+  - resourcerelease:view
+  - projectrelease:view
+  - resourcereleasebinding:view
+  - projectreleasebinding:view
+  - resourcetype:view
+  - projecttype:view
+  - namespace:view
+  - project:view
+  - dataplane:view
+  - environment:view
+  - trait:view
+  - workload:view
+  - workflowplane:view
+  - clusterworkflowplane:view
+  - workflow:view
+  - deploymentpipeline:view
+  - observabilityplane:view
+  - clusterobservabilityplane:view
+  - clusterdataplane:view
+  - clustercomponenttype:view
+  - clusterresourcetype:view
+  - clusterprojecttype:view
+  - clustertrait:view
+  - clusterworkflow:view
+  - observabilityalertsnotificationchannel:view
