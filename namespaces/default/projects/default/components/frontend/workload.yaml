@@ -14,7 +14,7 @@ spec:
     image: host.k3d.internal:10082/default-default-frontend:v1-ba160e4d
   endpoints:
     endpoint-1:
-      port: 3000
+      port: 80
       type: HTTP
       visibility:
       - external

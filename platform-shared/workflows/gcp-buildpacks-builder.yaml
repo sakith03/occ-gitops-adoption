@@ -1,0 +1,222 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterWorkflow
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterWorkflow","metadata":{"annotations":{"openchoreo.dev/description":"Supports building Go, Java, Node.js, Python, and .NET applications. See https://cloud.google.com/docs/buildpacks/overview"},"labels":{"openchoreo.dev/workflow-type":"component"},"name":"gcp-buildpacks-builder"},"spec":{"externalRefs":[{"apiVersion":"openchoreo.dev/v1alpha1","id":"git-secret-reference","kind":"SecretReference","name":"${parameters.repository.secretRef}"}],"parameters":{"openAPIV3Schema":{"properties":{"buildEnv":{"default":[],"description":"Build-time environment variables passed to the buildpack (e.g. GOOGLE_RUNTIME_VERSION=21). Reference: https://docs.cloud.google.com/docs/buildpacks/set-environment-variables","items":{"properties":{"name":{"description":"Environment variable name","type":"string"},"value":{"description":"Environment variable value","type":"string"}},"required":["name","value"],"type":"object"},"type":"array"},"repository":{"description":"Git repository configuration","properties":{"appPath":{"default":".","description":"Path to the application directory within the repository","type":"string","x-openchoreo-component-parameter-repository-app-path":true},"revision":{"default":{},"properties":{"branch":{"default":"main","description":"Git branch to checkout","type":"string","x-openchoreo-component-parameter-repository-branch":true},"commit":{"default":"","description":"Git commit SHA or reference (optional, defaults to latest)","type":"string","x-openchoreo-component-parameter-repository-commit":true}},"type":"object"},"secretRef":{"default":"","description":"Secret reference name for Git credentials","type":"string","x-openchoreo-component-parameter-repository-secret-ref":true},"url":{"description":"Git repository URL","type":"string","x-openchoreo-component-parameter-repository-url":true}},"required":["url"],"type":"object"}},"required":["repository"],"type":"object"}},"resources":[{"id":"git-secret","includeWhen":"${has(parameters.repository.secretRef) \u0026\u0026 parameters.repository.secretRef != \"\"}","template":{"apiVersion":"external-secrets.io/v1","kind":"ExternalSecret","metadata":{"name":"${metadata.workflowRunName}-git-secret","namespace":"${metadata.namespace}"},"spec":{"data":"${externalRefs['git-secret-reference'].spec.data.map(secret, {\n  \"secretKey\": secret.secretKey,\n  \"remoteRef\": {\n    \"key\": secret.remoteRef.key,\n    \"property\": has(secret.remoteRef.property) \u0026\u0026 secret.remoteRef.property != \"\" ? secret.remoteRef.property : oc_omit()\n  }\n})}\n","refreshInterval":"15s","secretStoreRef":{"kind":"ClusterSecretStore","name":"${workflowplane.secretStore}"},"target":{"creationPolicy":"Owner","name":"${metadata.workflowRunName}-git-secret","template":{"type":"${externalRefs['git-secret-reference'].spec.template.type}"}}}}},{"id":"registry-push-secret","template":{"apiVersion":"external-secrets.io/v1","kind":"ExternalSecret","metadata":{"name":"${metadata.workflowRunName}-registry-push-secret","namespace":"${metadata.namespace}"},"spec":{"data":[{"remoteRef":{"key":"registry-push-secret","property":"value"},"secretKey":"registrysecret"}],"refreshInterval":"15s","secretStoreRef":{"kind":"ClusterSecretStore","name":"${workflowplane.secretStore}"},"target":{"creationPolicy":"Owner","name":"${metadata.workflowRunName}-registry-push-secret","template":{"data":{".dockerconfigjson":"{{ .registrysecret | toString }}"},"type":"kubernetes.io/dockerconfigjson"}}}}}],"runTemplate":{"apiVersion":"argoproj.io/v1alpha1","kind":"Workflow","metadata":{"name":"${metadata.workflowRunName}","namespace":"${metadata.namespace}"},"spec":{"arguments":{"parameters":[{"name":"component-name","value":"${metadata.labels['openchoreo.dev/component']}"},{"name":"project-name","value":"${metadata.labels['openchoreo.dev/project']}"},{"name":"workflowrun-name","value":"${metadata.workflowRunName}"},{"name":"namespace-name","value":"${metadata.namespaceName}"},{"name":"git-repo","value":"${parameters.repository.url}"},{"name":"branch","value":"${parameters.repository.revision.branch}"},{"name":"commit","value":"${parameters.repository.revision.commit}"},{"name":"app-path","value":"${parameters.repository.appPath}"},{"name":"build-env","value":"${parameters.buildEnv}"},{"name":"image-name","value":"${metadata.namespaceName}-${metadata.labels['openchoreo.dev/project']}-${metadata.labels['openchoreo.dev/component']}"},{"name":"image-tag","value":"v1"},{"name":"git-secret","value":"${metadata.workflowRunName}-git-secret"},{"name":"registry-push-secret","value":"${metadata.workflowRunName}-registry-push-secret"}]},"entrypoint":"build-workflow","serviceAccountName":"workflow-sa","templates":[{"name":"build-workflow","steps":[[{"name":"checkout-source","templateRef":{"clusterScope":true,"name":"checkout-source","template":"checkout"}}],[{"arguments":{"parameters":[{"name":"git-revision","value":"{{steps.checkout-source.outputs.parameters.git-revision}}"}]},"name":"build-image","templateRef":{"clusterScope":true,"name":"gcp-buildpacks-build","template":"build-image"}}],[{"arguments":{"parameters":[{"name":"git-revision","value":"{{steps.checkout-source.outputs.parameters.git-revision}}"}]},"name":"publish-image","templateRef":{"clusterScope":true,"name":"publish-image","template":"publish-image"}}],[{"arguments":{"parameters":[{"name":"image","value":"{{steps.publish-image.outputs.parameters.image}}"},{"name":"run-name","value":"{{workflow.parameters.workflowrun-name}}"},{"name":"source-commit","value":"{{steps.checkout-source.outputs.parameters.commit-sha}}"},{"name":"source-branch","value":"{{steps.checkout-source.outputs.parameters.source-branch}}"},{"name":"source-repository","value":"{{workflow.parameters.git-repo}}"},{"name":"source-authored-at","value":"{{steps.checkout-source.outputs.parameters.commit-authored-at}}"}]},"name":"generate-workload-cr","templateRef":{"clusterScope":true,"name":"generate-workload","template":"generate-workload-cr"}}]]}],"volumeClaimTemplates":[{"metadata":{"name":"workspace"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"2Gi"}}}}]}},"ttlAfterCompletion":"1d","workflowPlaneRef":{"kind":"ClusterWorkflowPlane","name":"default"}}}
+    openchoreo.dev/description: Supports building Go, Java, Node.js, Python, and .NET
+      applications. See https://cloud.google.com/docs/buildpacks/overview
+  labels:
+    openchoreo.dev/workflow-type: component
+  name: gcp-buildpacks-builder
+spec:
+  externalRefs:
+  - apiVersion: openchoreo.dev/v1alpha1
+    id: git-secret-reference
+    kind: SecretReference
+    name: ${parameters.repository.secretRef}
+  parameters:
+    openAPIV3Schema:
+      properties:
+        buildEnv:
+          default: []
+          description: 'Build-time environment variables passed to the buildpack (e.g.
+            GOOGLE_RUNTIME_VERSION=21). Reference: https://docs.cloud.google.com/docs/buildpacks/set-environment-variables'
+          items:
+            properties:
+              name:
+                description: Environment variable name
+                type: string
+              value:
+                description: Environment variable value
+                type: string
+            required:
+            - name
+            - value
+            type: object
+          type: array
+        repository:
+          description: Git repository configuration
+          properties:
+            appPath:
+              default: .
+              description: Path to the application directory within the repository
+              type: string
+              x-openchoreo-component-parameter-repository-app-path: true
+            revision:
+              default: {}
+              properties:
+                branch:
+                  default: main
+                  description: Git branch to checkout
+                  type: string
+                  x-openchoreo-component-parameter-repository-branch: true
+                commit:
+                  default: ""
+                  description: Git commit SHA or reference (optional, defaults to
+                    latest)
+                  type: string
+                  x-openchoreo-component-parameter-repository-commit: true
+              type: object
+            secretRef:
+              default: ""
+              description: Secret reference name for Git credentials
+              type: string
+              x-openchoreo-component-parameter-repository-secret-ref: true
+            url:
+              description: Git repository URL
+              type: string
+              x-openchoreo-component-parameter-repository-url: true
+          required:
+          - url
+          type: object
+      required:
+      - repository
+      type: object
+  resources:
+  - id: git-secret
+    includeWhen: ${has(parameters.repository.secretRef) && parameters.repository.secretRef
+      != ""}
+    template:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: ${metadata.workflowRunName}-git-secret
+        namespace: ${metadata.namespace}
+      spec:
+        data: |
+          ${externalRefs['git-secret-reference'].spec.data.map(secret, {
+            "secretKey": secret.secretKey,
+            "remoteRef": {
+              "key": secret.remoteRef.key,
+              "property": has(secret.remoteRef.property) && secret.remoteRef.property != "" ? secret.remoteRef.property : oc_omit()
+            }
+          })}
+        refreshInterval: 15s
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: ${workflowplane.secretStore}
+        target:
+          creationPolicy: Owner
+          name: ${metadata.workflowRunName}-git-secret
+          template:
+            type: ${externalRefs['git-secret-reference'].spec.template.type}
+  - id: registry-push-secret
+    template:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: ${metadata.workflowRunName}-registry-push-secret
+        namespace: ${metadata.namespace}
+      spec:
+        data:
+        - remoteRef:
+            key: registry-push-secret
+            property: value
+          secretKey: registrysecret
+        refreshInterval: 15s
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: ${workflowplane.secretStore}
+        target:
+          creationPolicy: Owner
+          name: ${metadata.workflowRunName}-registry-push-secret
+          template:
+            data:
+              .dockerconfigjson: '{{ .registrysecret | toString }}'
+            type: kubernetes.io/dockerconfigjson
+  runTemplate:
+    apiVersion: argoproj.io/v1alpha1
+    kind: Workflow
+    metadata:
+      name: ${metadata.workflowRunName}
+      namespace: ${metadata.namespace}
+    spec:
+      arguments:
+        parameters:
+        - name: component-name
+          value: ${metadata.labels['openchoreo.dev/component']}
+        - name: project-name
+          value: ${metadata.labels['openchoreo.dev/project']}
+        - name: workflowrun-name
+          value: ${metadata.workflowRunName}
+        - name: namespace-name
+          value: ${metadata.namespaceName}
+        - name: git-repo
+          value: ${parameters.repository.url}
+        - name: branch
+          value: ${parameters.repository.revision.branch}
+        - name: commit
+          value: ${parameters.repository.revision.commit}
+        - name: app-path
+          value: ${parameters.repository.appPath}
+        - name: build-env
+          value: ${parameters.buildEnv}
+        - name: image-name
+          value: ${metadata.namespaceName}-${metadata.labels['openchoreo.dev/project']}-${metadata.labels['openchoreo.dev/component']}
+        - name: image-tag
+          value: v1
+        - name: git-secret
+          value: ${metadata.workflowRunName}-git-secret
+        - name: registry-push-secret
+          value: ${metadata.workflowRunName}-registry-push-secret
+      entrypoint: build-workflow
+      serviceAccountName: workflow-sa
+      templates:
+      - name: build-workflow
+        steps:
+        - - name: checkout-source
+            templateRef:
+              clusterScope: true
+              name: checkout-source
+              template: checkout
+        - - arguments:
+              parameters:
+              - name: git-revision
+                value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
+            name: build-image
+            templateRef:
+              clusterScope: true
+              name: gcp-buildpacks-build
+              template: build-image
+        - - arguments:
+              parameters:
+              - name: git-revision
+                value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
+            name: publish-image
+            templateRef:
+              clusterScope: true
+              name: publish-image
+              template: publish-image
+        - - arguments:
+              parameters:
+              - name: image
+                value: '{{steps.publish-image.outputs.parameters.image}}'
+              - name: run-name
+                value: '{{workflow.parameters.workflowrun-name}}'
+              - name: source-commit
+                value: '{{steps.checkout-source.outputs.parameters.commit-sha}}'
+              - name: source-branch
+                value: '{{steps.checkout-source.outputs.parameters.source-branch}}'
+              - name: source-repository
+                value: '{{workflow.parameters.git-repo}}'
+              - name: source-authored-at
+                value: '{{steps.checkout-source.outputs.parameters.commit-authored-at}}'
+            name: generate-workload-cr
+            templateRef:
+              clusterScope: true
+              name: generate-workload
+              template: generate-workload-cr
+      volumeClaimTemplates:
+      - metadata:
+          name: workspace
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+  ttlAfterCompletion: 1d
+  workflowPlaneRef:
+    kind: ClusterWorkflowPlane
+    name: default

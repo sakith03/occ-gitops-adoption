@@ -1,0 +1,17 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Environment
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"Environment","metadata":{"annotations":{"openchoreo.dev/description":"Development","openchoreo.dev/display-name":"Development"},"labels":{"openchoreo.dev/name":"development"},"name":"development","namespace":"default"},"spec":{"dataPlaneRef":{"kind":"ClusterDataPlane","name":"default"},"isProduction":false}}
+    openchoreo.dev/description: Development
+    openchoreo.dev/display-name: Development
+  labels:
+    openchoreo.dev/name: development
+  name: development
+  namespace: default
+spec:
+  dataPlaneRef:
+    kind: ClusterDataPlane
+    name: default
+  gateway: {}

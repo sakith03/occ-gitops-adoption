@@ -1,0 +1,25 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterAuthzRoleBinding
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterAuthzRoleBinding","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"openchoreo-control-plane","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"openchoreo-control-plane","app.kubernetes.io/part-of":"openchoreo","app.kubernetes.io/version":"v1.3.1","helm.sh/chart":"openchoreo-control-plane-1.3.1","openchoreo.io/bootstrap":"true"},"name":"mcp-tryout-client-binding"},"spec":{"effect":"allow","entitlement":{"claim":"client_id","value":"service_mcp_client"},"roleMappings":[{"roleRef":{"kind":"ClusterAuthzRole","name":"admin"}}]}}
+  labels:
+    app.kubernetes.io/instance: openchoreo-control-plane
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: openchoreo-control-plane
+    app.kubernetes.io/part-of: openchoreo
+    app.kubernetes.io/version: v1.3.1
+    helm.sh/chart: openchoreo-control-plane-1.3.1
+    openchoreo.io/bootstrap: "true"
+  name: mcp-tryout-client-binding
+spec:
+  effect: allow
+  entitlement:
+    claim: client_id
+    value: service_mcp_client
+  roleMappings:
+  - roleRef:
+      kind: ClusterAuthzRole
+      name: admin
+    scope: {}

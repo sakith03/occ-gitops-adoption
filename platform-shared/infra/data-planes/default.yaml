@@ -1,0 +1,45 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterDataPlane
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ClusterDataPlane","metadata":{"annotations":{},"name":"default"},"spec":{"clusterAgent":{"clientCA":{"value":"-----BEGIN CERTIFICATE-----\nMIIDATCCAemgAwIBAgIUdvMFHUuO6ji3TynH0L9UEbWKtiEwDQYJKoZIhvcNAQEL\nBQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y\nNjEwMDYwNDUyMzBaFw0yNzAxMDQwNDUyMzBaMCcxEzARBgNVBAoTCk9wZW5DaG9y\nZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCUS7Iyk49p6lRAL6AQd/3nZSEZCkAwEcI1K/6zBiq7fGl5qp+r5zFaP6n2\n2HcdfcQ/YLcmI0vyat9T8cOBx7Lc3mo579zUBgEE262BUaflMgIJmLalsP31MIyC\nSxhAHvqrqTR6+1AEPZIY46r+pC9VorbuQsHp8cho8aQNWsV3cPgozdSjddUgAq5G\nWEsoLrSSaX8EsuFFXm/cJlPLPSmC1hwdUOTWKKHXR5SthdLaRHZwdeE31NFswCia\nGrsS4i5fO+PPceF765R0zQUVxo3yXP5ln94lyJjWw646QNCfh/0i+/ccQ390LkxG\nfLhZMosIk8U0FANp2oZcCuy+bcMxAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF\nBwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAJEW4o4Z8oZnAuMc\nDCULfmMm5uAanD9g0kECK/Bxn4FMIlnhA1OZ6gkgZykSwRwzTw2dcAHld9G3Gfyt\nzo5rn9DpOTtCSNLoLQf5yLL8L6lIOpUkFUH1LnZeFV1VXWCLNAxjeHfinov072EP\n9nNhs7u8JivbQF0DgkUoR7q9E5E9pP52InMJ9owKaeXe0VYJVBHE403mrik6uK/4\nfn7wWOecmZisGL79a1GXmE/bIBoCus5P2hUDwHfumoqCwz6CCZWw75Ajci6+AQIh\nFmV9YC70TMUZcvPKnZeCLp32WTSY0cPSG0RsB+l59Y/7cvvTILRY8qiReQCUP6Fq\nIZwAfH8=\n-----END CERTIFICATE-----\n"}},"gateway":{"ingress":{"external":{"http":{"host":"openchoreoapis.localhost","listenerName":"http","port":19080},"name":"gateway-default","namespace":"openchoreo-data-plane"}}},"planeID":"default","secretStoreRef":{"name":"default"}}}
+  name: default
+spec:
+  clusterAgent:
+    clientCA:
+      value: |
+        -----BEGIN CERTIFICATE-----
+        MIIDATCCAemgAwIBAgIUdvMFHUuO6ji3TynH0L9UEbWKtiEwDQYJKoZIhvcNAQEL
+        BQAwJzETMBEGA1UEChMKT3BlbkNob3JlbzEQMA4GA1UEAxMHZGVmYXVsdDAeFw0y
+        NjEwMDYwNDUyMzBaFw0yNzAxMDQwNDUyMzBaMCcxEzARBgNVBAoTCk9wZW5DaG9y
+        ZW8xEDAOBgNVBAMTB2RlZmF1bHQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+        AoIBAQCUS7Iyk49p6lRAL6AQd/3nZSEZCkAwEcI1K/6zBiq7fGl5qp+r5zFaP6n2
+        2HcdfcQ/YLcmI0vyat9T8cOBx7Lc3mo579zUBgEE262BUaflMgIJmLalsP31MIyC
+        SxhAHvqrqTR6+1AEPZIY46r+pC9VorbuQsHp8cho8aQNWsV3cPgozdSjddUgAq5G
+        WEsoLrSSaX8EsuFFXm/cJlPLPSmC1hwdUOTWKKHXR5SthdLaRHZwdeE31NFswCia
+        GrsS4i5fO+PPceF765R0zQUVxo3yXP5ln94lyJjWw646QNCfh/0i+/ccQ390LkxG
+        fLhZMosIk8U0FANp2oZcCuy+bcMxAgMBAAGjJTAjMBMGA1UdJQQMMAoGCCsGAQUF
+        BwMCMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAJEW4o4Z8oZnAuMc
+        DCULfmMm5uAanD9g0kECK/Bxn4FMIlnhA1OZ6gkgZykSwRwzTw2dcAHld9G3Gfyt
+        zo5rn9DpOTtCSNLoLQf5yLL8L6lIOpUkFUH1LnZeFV1VXWCLNAxjeHfinov072EP
+        9nNhs7u8JivbQF0DgkUoR7q9E5E9pP52InMJ9owKaeXe0VYJVBHE403mrik6uK/4
+        fn7wWOecmZisGL79a1GXmE/bIBoCus5P2hUDwHfumoqCwz6CCZWw75Ajci6+AQIh
+        FmV9YC70TMUZcvPKnZeCLp32WTSY0cPSG0RsB+l59Y/7cvvTILRY8qiReQCUP6Fq
+        IZwAfH8=
+        -----END CERTIFICATE-----
+  gateway:
+    ingress:
+      external:
+        http:
+          host: openchoreoapis.localhost
+          listenerName: http
+          port: 19080
+        name: gateway-default
+        namespace: openchoreo-data-plane
+  observabilityPlaneRef:
+    kind: ClusterObservabilityPlane
+    name: default
+  planeID: default
+  secretStoreRef:
+    name: default
