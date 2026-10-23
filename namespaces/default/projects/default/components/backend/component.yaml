@@ -20,7 +20,7 @@ spec:
       buildEnv: []
       docker:
         context: /backend
-        filePath: /backend/src/StudentWorkload.API
+        filePath: /backend/src/StudentWorkload.API/Dockerfile
       repository:
         appPath: /backend
         revision:
