@@ -1,0 +1,14 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterAuthzRoleBinding
+metadata:
+  name: exporter-user-exporters
+spec:
+  effect: allow
+  entitlement:
+    claim: groups
+    value: exporters
+  roleMappings:
+  - roleRef:
+      kind: ClusterAuthzRole
+      name: exporter
+    scope: {}

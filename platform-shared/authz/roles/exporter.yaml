@@ -1,0 +1,42 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ClusterAuthzRole
+metadata:
+  name: exporter
+spec:
+  actions:
+  - authzrole:*
+  - authzrolebinding:*
+  - clusterauthzrole:*
+  - clusterauthzrolebinding:*
+  - clustercomponenttype:*
+  - clusterdataplane:*
+  - clusterobservabilityplane:*
+  - clusterprojecttype:*
+  - clusterresourcetype:*
+  - clustertrait:*
+  - clusterworkflow:*
+  - clusterworkflowplane:*
+  - component:*
+  - componentrelease:*
+  - componenttype:*
+  - dataplane:*
+  - deploymentpipeline:*
+  - environment:*
+  - namespace:*
+  - observabilityplane:*
+  - project:*
+  - projectrelease:*
+  - projectreleasebinding:*
+  - projecttype:*
+  - releasebinding:*
+  - resource:*
+  - resourcerelease:*
+  - resourcereleasebinding:*
+  - resourcetype:*
+  - secret:*
+  - secretreference:*
+  - trait:*
+  - workflow:*
+  - workflowplane:*
+  - workflowrun:*
+  - workload:*

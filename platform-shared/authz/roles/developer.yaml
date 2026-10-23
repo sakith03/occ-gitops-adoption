@@ -13,6 +13,7 @@ spec:
   - clustertrait:view
   - clusterworkflow:view
   - clusterworkflowplane:view
+  - component:*
   - componentrelease:create
   - componentrelease:view
   - componenttype:view
@@ -50,4 +51,3 @@ spec:
   - workflowrun:delete
   - workflowrun:view
   - workload:*
-  - portal-assistant:invoke
