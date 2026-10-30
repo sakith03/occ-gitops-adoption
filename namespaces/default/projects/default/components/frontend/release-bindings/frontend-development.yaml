@@ -11,5 +11,5 @@ spec:
   owner:
     componentName: frontend
     projectName: default
-  releaseName: release-frontend-2
+  releaseName: frontend-698d6bd94d
   state: Active

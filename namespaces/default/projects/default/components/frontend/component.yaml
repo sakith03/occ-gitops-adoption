@@ -8,6 +8,7 @@ metadata:
   name: frontend
   namespace: default
 spec:
+  autoDeploy: true
   componentType:
     kind: ClusterComponentType
     name: deployment/web-application
