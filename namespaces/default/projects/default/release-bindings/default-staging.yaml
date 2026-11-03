@@ -1,9 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ProjectReleaseBinding
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"openchoreo.dev/v1alpha1","kind":"ProjectReleaseBinding","metadata":{"annotations":{},"labels":{"openchoreo.dev/environment":"staging","openchoreo.dev/project":"default"},"name":"default-staging","namespace":"default"},"spec":{"environment":"staging","owner":{"projectName":"default"}}}
   labels:
     openchoreo.dev/environment: staging
     openchoreo.dev/project: default
