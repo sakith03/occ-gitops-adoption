@@ -1,0 +1,12 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ProjectReleaseBinding
+metadata:
+  labels:
+    openchoreo.dev/project: project01
+  name: project01-production
+  namespace: default
+spec:
+  environment: production
+  owner:
+    projectName: project01
+  projectRelease: project01-6d675ddbf6

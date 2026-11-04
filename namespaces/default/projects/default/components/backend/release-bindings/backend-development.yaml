@@ -1,0 +1,28 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ReleaseBinding
+metadata:
+  labels:
+    openchoreo.dev/component: backend
+    openchoreo.dev/project: default
+  name: backend-development
+  namespace: default
+spec:
+  componentTypeEnvironmentConfigs:
+    imagePullPolicy: IfNotPresent
+    replicas: 1
+    resources: {}
+  environment: development
+  owner:
+    componentName: backend
+    projectName: default
+  releaseName: backend-55ccc4f6d6
+  state: Active
+  workloadOverrides:
+    container:
+      env:
+      - key: ConnectionStrings__DefaultConnection
+        valueFrom:
+          secretKeyRef:
+            key: connectionString
+            name: backend-db-connection
+      - key: JwtSettings__Secret

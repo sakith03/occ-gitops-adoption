@@ -1,0 +1,10 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ResourceReleaseBinding
+metadata:
+  name: export-test-development
+  namespace: default
+spec:
+  environment: development
+  owner:
+    projectName: default
+    resourceName: student-workload-db

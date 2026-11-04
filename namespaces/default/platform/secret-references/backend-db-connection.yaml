@@ -1,0 +1,19 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: SecretReference
+metadata:
+  labels:
+    openchoreo.dev/secret-type: generic
+  name: backend-db-connection
+  namespace: default
+spec:
+  data:
+  - remoteRef:
+      key: secret/default/generic/backend-db-connection
+      property: connectionString
+    secretKey: connectionString
+  refreshInterval: 1h0m0s
+  targetPlane:
+    kind: ClusterDataPlane
+    name: default
+  template:
+    type: Opaque

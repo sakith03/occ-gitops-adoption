@@ -1,0 +1,63 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ResourceRelease
+metadata:
+  name: student-workload-db-654cb5545f
+  namespace: default
+spec:
+  owner:
+    projectName: default
+    resourceName: student-workload-db
+  parameters:
+    database: StudentWorkloadDb
+  resourceType:
+    kind: ClusterResourceType
+    name: external-mssql
+    spec:
+      environmentConfigs:
+        openAPIV3Schema:
+          properties:
+            host:
+              type: string
+            port:
+              default: "1433"
+              type: string
+          required:
+          - host
+          type: object
+      outputs:
+      - name: host
+        value: ${environmentConfigs.host}
+      - name: port
+        value: ${environmentConfigs.port}
+      - name: database
+        value: ${parameters.database}
+      - name: username
+        secretKeyRef:
+          key: username
+          name: external-mssql-credentials
+      - name: password
+        secretKeyRef:
+          key: password
+          name: external-mssql-credentials
+      parameters:
+        openAPIV3Schema:
+          properties:
+            database:
+              default: StudentWorkloadDb
+              type: string
+          type: object
+      resources:
+      - id: external-db-reference
+        template:
+          apiVersion: v1
+          data:
+            connectionType: external-mssql
+            database: ${parameters.database}
+            host: ${environmentConfigs.host}
+            port: ${environmentConfigs.port}
+          kind: ConfigMap
+          metadata:
+            labels: ${metadata.labels}
+            name: ${metadata.name}-reference
+            namespace: ${metadata.namespace}
+      retainPolicy: Delete

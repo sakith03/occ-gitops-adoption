@@ -9,6 +9,12 @@ metadata:
 spec:
   container:
     image: host.k3d.internal:10082/default-default-backend:v1-ba160e4d
+  endpoints:
+    endpoint-1:
+      port: 8080
+      type: HTTP
+      visibility:
+      - external
   owner:
     componentName: backend
     projectName: default

@@ -1,0 +1,14 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ResourceReleaseBinding
+metadata:
+  name: student-workload-db-default-development
+  namespace: default
+spec:
+  environment: development
+  owner:
+    projectName: default
+    resourceName: student-workload-db
+  resourceRelease: student-workload-db-654cb5545f
+  resourceTypeEnvironmentConfigs:
+    host: 172.18.0.4
+    port: "1433"

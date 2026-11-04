@@ -1,0 +1,14 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    openchoreo.dev/display-name: project1
+  name: project01
+  namespace: default
+spec:
+  deploymentPipelineRef:
+    kind: DeploymentPipeline
+    name: default
+  type:
+    kind: ClusterProjectType
+    name: default
