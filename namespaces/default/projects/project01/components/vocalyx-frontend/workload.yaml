@@ -8,8 +8,6 @@ metadata:
   namespace: default
 spec:
   container:
-    command:
-    - foo
     image: host.k3d.internal:10082/default-project01-vocalyx-frontend:v1-569f4c5a
   endpoints:
     endpoint-1:
