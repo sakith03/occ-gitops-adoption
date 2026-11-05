@@ -1,0 +1,24 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  labels:
+    openchoreo.dev/project: project02
+  name: distributed-system-frontend
+  namespace: exporter
+spec:
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/web-application
+  owner:
+    projectName: project02
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: gcp-buildpacks-builder
+    parameters:
+      buildEnv: []
+      repository:
+        appPath: /frontend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/Distributed-File-Storage-System.git

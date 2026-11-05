@@ -1,0 +1,27 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    openchoreo.dev/component: vocalyx-frontend
+    openchoreo.dev/project: project01
+  name: vocalyx-frontend-workload
+  namespace: default
+spec:
+  container:
+    command:
+    - foo
+    image: host.k3d.internal:10082/default-project01-vocalyx-frontend:v1-569f4c5a
+  endpoints:
+    endpoint-1:
+      port: 8080
+      type: HTTP
+      visibility:
+      - external
+  owner:
+    componentName: vocalyx-frontend
+    projectName: project01
+  source:
+    authoredAt: "2026-01-21T04:58:47Z"
+    branch: main
+    commit: 569f4c5afa1a3dda42cc9898546df7a4e26580c7
+    repository: https://github.com/sakith03/Vocalyx.git

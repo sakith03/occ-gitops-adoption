@@ -1,0 +1,24 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  labels:
+    openchoreo.dev/project: project01
+  name: vocalyx-backend
+  namespace: default
+spec:
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/service
+  owner:
+    projectName: project01
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: gcp-buildpacks-builder
+    parameters:
+      buildEnv: []
+      repository:
+        appPath: /Aisales/aisales_backend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/Vocalyx.git

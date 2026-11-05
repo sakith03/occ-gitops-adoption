@@ -1,0 +1,12 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ReleaseBinding
+metadata:
+  name: vocalyx-frontend-development
+  namespace: default
+spec:
+  environment: development
+  owner:
+    componentName: vocalyx-frontend
+    projectName: project01
+  releaseName: vocalyx-frontend-6c4ff69c48
+  state: Active

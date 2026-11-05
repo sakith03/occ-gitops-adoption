@@ -1,0 +1,31 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  labels:
+    openchoreo.dev/project: project01
+  name: vocalyx-frontend
+  namespace: default
+spec:
+  autoDeploy: true
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/web-application
+  owner:
+    projectName: project01
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: gcp-buildpacks-builder
+    parameters:
+      buildEnv:
+      - name: NODE_ENV
+        value: evelopment
+      - name: GOOGLE_NODE_RUN_SCRIPTS
+        value: build
+      - name: GOOGLE_ENTRYPOINT
+        value: npm run preview -- --host 0.0.0.0 --port 8080 --strictPort
+      repository:
+        appPath: /Aisales/aisales_frontend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/Vocalyx.git
