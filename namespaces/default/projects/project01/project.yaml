@@ -2,7 +2,7 @@ apiVersion: openchoreo.dev/v1alpha1
 kind: Project
 metadata:
   annotations:
-    openchoreo.dev/display-name: project1
+    openchoreo.dev/display-name: project01
   name: project01
   namespace: default
 spec:
