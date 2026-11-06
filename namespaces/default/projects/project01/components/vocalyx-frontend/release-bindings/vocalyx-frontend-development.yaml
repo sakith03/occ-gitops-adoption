@@ -8,5 +8,5 @@ spec:
   owner:
     componentName: vocalyx-frontend
     projectName: project01
-  releaseName: vocalyx-frontend-6c4ff69c48
+  releaseName: vocalyx-frontend-6bf8569bb5
   state: Active

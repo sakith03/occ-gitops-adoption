@@ -1,0 +1,34 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ProjectType
+metadata:
+  annotations:
+    openchoreo.dev/description: Namespaced example based on ClusterProjectType/default.
+  labels:
+    openchoreo.dev/sample: namespaced-platform
+  name: sample-project
+  namespace: default
+spec:
+  environmentConfigs:
+    openAPIV3Schema:
+      properties:
+        namespaceAnnotations:
+          additionalProperties:
+            type: string
+          default: {}
+          type: object
+        namespaceLabels:
+          additionalProperties:
+            type: string
+          default: {}
+          type: object
+      type: object
+  resources:
+  - id: cell-namespace
+    targetPlane: dataplane
+    template:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        annotations: ${environmentConfigs.namespaceAnnotations}
+        labels: ${oc_merge(metadata.labels, environmentConfigs.namespaceLabels)}
+        name: ${metadata.namespace}

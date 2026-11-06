@@ -1,0 +1,17 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: AuthzRole
+metadata:
+  labels:
+    openchoreo.dev/sample: namespaced-platform
+  name: sample-reader
+  namespace: exporter
+spec:
+  actions:
+  - projecttype:view
+  - componenttype:view
+  - trait:view
+  - workflow:view
+  - dataplane:view
+  - workflowplane:view
+  - observabilityplane:view
+  description: Read-only example role for platform definitions in the default namespace.

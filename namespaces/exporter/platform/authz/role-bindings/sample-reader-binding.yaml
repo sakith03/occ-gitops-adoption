@@ -1,0 +1,17 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: AuthzRoleBinding
+metadata:
+  labels:
+    openchoreo.dev/sample: namespaced-platform
+  name: sample-reader-binding
+  namespace: exporter
+spec:
+  effect: allow
+  entitlement:
+    claim: groups
+    value: openchoreo-sample-readers
+  roleMappings:
+  - roleRef:
+      kind: AuthzRole
+      name: sample-reader
+    scope: {}
