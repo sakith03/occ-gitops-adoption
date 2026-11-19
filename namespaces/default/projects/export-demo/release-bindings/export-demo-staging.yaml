@@ -1,0 +1,13 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ProjectReleaseBinding
+metadata:
+  annotations: {}
+  labels:
+    openchoreo.dev/project: export-demo
+  name: export-demo-staging
+  namespace: default
+spec:
+  environment: staging
+  owner:
+    projectName: export-demo
+  projectRelease: export-demo-6d675ddbf6

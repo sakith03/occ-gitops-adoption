@@ -1,6 +1,9 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ResourceReleaseBinding
 metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
   name: student-workload-db-default-development
   namespace: default
 spec:

@@ -1,0 +1,27 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
+    openchoreo.dev/component: backend
+    openchoreo.dev/project: default
+  name: backend-workload
+  namespace: default
+spec:
+  container:
+    image: host.k3d.internal:10082/default-default-backend:v1-ba160e4d
+  endpoints:
+    endpoint-1:
+      port: 8080
+      type: HTTP
+      visibility:
+      - external
+  owner:
+    componentName: backend
+    projectName: default
+  source:
+    authoredAt: "2026-04-20T16:53:12Z"
+    branch: occ
+    commit: ba160e4d64aa5887b6885828821388e343590729
+    repository: https://github.com/sakith03/student-workload-management-system.git

@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: DeploymentPipeline
 metadata:
+  annotations: {}
   name: standard-pipeline
   namespace: exporter
 spec: {}

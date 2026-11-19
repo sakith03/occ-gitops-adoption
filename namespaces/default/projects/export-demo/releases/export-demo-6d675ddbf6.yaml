@@ -1,0 +1,37 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ProjectRelease
+metadata:
+  annotations: {}
+  name: export-demo-6d675ddbf6
+  namespace: default
+spec:
+  owner:
+    projectName: export-demo
+  projectType:
+    kind: ClusterProjectType
+    name: default
+    spec:
+      environmentConfigs:
+        openAPIV3Schema:
+          properties:
+            namespaceAnnotations:
+              additionalProperties:
+                type: string
+              default: {}
+              type: object
+            namespaceLabels:
+              additionalProperties:
+                type: string
+              default: {}
+              type: object
+          type: object
+      resources:
+      - id: cell-namespace
+        targetPlane: dataplane
+        template:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            annotations: ${environmentConfigs.namespaceAnnotations}
+            labels: ${oc_merge(metadata.labels, environmentConfigs.namespaceLabels)}
+            name: ${metadata.namespace}

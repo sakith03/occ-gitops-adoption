@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ProjectRelease
 metadata:
+  annotations: {}
   name: project02-6d675ddbf6
   namespace: exporter
 spec:

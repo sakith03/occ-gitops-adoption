@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterDataPlane
 metadata:
+  annotations: {}
   name: default
 spec:
   clusterAgent:

@@ -1,0 +1,13 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ReleaseBinding
+metadata:
+  annotations: {}
+  name: members-api-development
+  namespace: default
+spec:
+  environment: development
+  owner:
+    componentName: members-api
+    projectName: export-demo
+  releaseName: members-api-55f557d775
+  state: Active

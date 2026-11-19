@@ -5,6 +5,8 @@ metadata:
     openchoreo.dev/description: Staging
     openchoreo.dev/display-name: Staging
   labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-platform
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/name: staging
   name: staging
   namespace: default

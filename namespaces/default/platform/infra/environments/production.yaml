@@ -5,6 +5,8 @@ metadata:
     openchoreo.dev/description: Production
     openchoreo.dev/display-name: Production
   labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-platform
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/name: production
   name: production
   namespace: default

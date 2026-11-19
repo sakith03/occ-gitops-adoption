@@ -1,7 +1,10 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ReleaseBinding
 metadata:
+  annotations: {}
   labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/component: backend
     openchoreo.dev/project: default
   name: backend-development
@@ -26,3 +29,4 @@ spec:
             key: connectionString
             name: backend-db-connection
       - key: JwtSettings__Secret
+        value: MySuperSecretKey123456

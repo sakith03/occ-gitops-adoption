@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: Component
 metadata:
+  annotations: {}
   labels:
     openchoreo.dev/project: project02
   name: distributed-system-frontend

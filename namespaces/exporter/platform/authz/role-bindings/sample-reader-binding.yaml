@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: AuthzRoleBinding
 metadata:
+  annotations: {}
   labels:
     openchoreo.dev/sample: namespaced-platform
   name: sample-reader-binding

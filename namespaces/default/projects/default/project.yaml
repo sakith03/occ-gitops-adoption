@@ -5,6 +5,8 @@ metadata:
     openchoreo.dev/description: Your first project to get started
     openchoreo.dev/display-name: Default Project
   labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/name: default
   name: default
   namespace: default

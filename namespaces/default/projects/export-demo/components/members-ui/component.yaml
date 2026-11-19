@@ -1,0 +1,29 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: Component
+metadata:
+  annotations: {}
+  labels:
+    openchoreo.dev/project: export-demo
+  name: members-ui
+  namespace: default
+spec:
+  componentType:
+    kind: ClusterComponentType
+    name: deployment/web-application
+  owner:
+    projectName: export-demo
+  parameters: {}
+  workflow:
+    kind: ClusterWorkflow
+    name: dockerfile-builder
+    parameters:
+      buildArgs: []
+      buildEnv: []
+      docker:
+        context: /frontend
+        filePath: /frontend/Dockerfile
+      repository:
+        appPath: /frontend
+        revision:
+          branch: main
+        url: https://github.com/sakith03/members-demo-api.git

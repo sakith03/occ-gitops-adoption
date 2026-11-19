@@ -1,6 +1,9 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ProjectRelease
 metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-projects
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
   name: default-6d675ddbf6
   namespace: default
 spec:

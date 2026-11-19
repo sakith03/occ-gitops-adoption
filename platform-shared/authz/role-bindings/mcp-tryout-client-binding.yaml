@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterAuthzRoleBinding
 metadata:
+  annotations: {}
   labels:
     app.kubernetes.io/instance: openchoreo-control-plane
     app.kubernetes.io/managed-by: Helm

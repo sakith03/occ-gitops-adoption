@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterTrait
 metadata:
+  annotations: {}
   name: observability-alert-rule
 spec:
   creates:

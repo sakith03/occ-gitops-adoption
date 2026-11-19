@@ -5,6 +5,8 @@ metadata:
     openchoreo.dev/description: Development
     openchoreo.dev/display-name: Development
   labels:
+    kustomize.toolkit.fluxcd.io/name: openchoreo-platform
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
     openchoreo.dev/name: development
   name: development
   namespace: default
