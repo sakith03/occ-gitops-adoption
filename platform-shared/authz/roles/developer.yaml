@@ -2,53 +2,88 @@ apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterAuthzRole
 metadata:
   annotations: {}
+  labels:
+    app.kubernetes.io/instance: openchoreo-control-plane
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: openchoreo-control-plane
+    app.kubernetes.io/part-of: openchoreo
+    app.kubernetes.io/version: v1.4.0-m.2
+    helm.sh/chart: openchoreo-control-plane-1.4.0-m.2
+    openchoreo.io/bootstrap: "true"
   name: developer
 spec:
   actions:
-  - alerts:*
-  - clustercomponenttype:view
   - clusterdataplane:view
+  - clusterworkflowplane:view
   - clusterobservabilityplane:view
-  - clusterprojecttype:view
+  - clustercomponenttype:view
   - clusterresourcetype:view
+  - clusterprojecttype:view
   - clustertrait:view
   - clusterworkflow:view
-  - clusterworkflowplane:view
-  - component:*
-  - componentrelease:create
-  - componentrelease:view
-  - componenttype:view
-  - dataplane:view
-  - deliveryinsights:*
-  - deploymentpipeline:view
-  - environment:view
-  - events:*
-  - finops:*
-  - finopsreport:view
-  - logs:*
-  - metrics:*
   - namespace:view
+  - environment:view
+  - deploymentpipeline:view
+  - dataplane:view
+  - workflowplane:view
   - observabilityplane:view
-  - project:view
-  - projectrelease:create
-  - projectrelease:view
-  - projectreleasebinding:*
-  - projecttype:view
-  - rcareport:view
-  - releasebinding:create
-  - releasebinding:update
-  - releasebinding:view
-  - resource:*
-  - resourcerelease:create
-  - resourcerelease:view
-  - resourcereleasebinding:*
+  - componenttype:view
   - resourcetype:view
-  - secretreference:*
-  - traces:*
+  - projecttype:view
   - trait:view
   - workflow:view
-  - workflowplane:view
+  - project:view
+  - component:view
+  - component:create
+  - component:update
+  - component:delete
+  - component:exec
+  - component:connect
+  - releaseline:view
+  - releaseline:create
+  - releaseline:update
+  - releaseline:delete
+  - componentrelease:view
+  - componentrelease:create
+  - releasebinding:view
+  - releasebinding:create
+  - releasebinding:update
+  - resource:view
+  - resource:create
+  - resource:update
+  - resource:delete
+  - resource:connect
+  - resource:read-secrets
+  - resourcerelease:view
+  - resourcerelease:create
+  - projectrelease:view
+  - projectrelease:create
+  - resourcereleasebinding:view
+  - resourcereleasebinding:create
+  - resourcereleasebinding:update
+  - resourcereleasebinding:delete
+  - projectreleasebinding:view
+  - projectreleasebinding:create
+  - projectreleasebinding:update
+  - projectreleasebinding:delete
+  - workflowrun:view
   - workflowrun:create
   - workflowrun:delete
-  - workflowrun:view
-  - workload:*
+  - secretreference:view
+  - secretreference:create
+  - secretreference:update
+  - secretreference:delete
+  - workload:view
+  - workload:create
+  - workload:update
+  - workload:delete
+  - logs:view
+  - events:view
+  - metrics:view
+  - traces:view
+  - alerts:view
+  - rcareport:view
+  - finopsreport:view
+  - finops:view
+  - deliveryinsights:view
+  - portal-assistant:invoke
