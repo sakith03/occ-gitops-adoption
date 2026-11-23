@@ -17,7 +17,7 @@ spec:
     claim: groups
     value: platform-engineers
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: platform-engineer
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: platform-engineer
+      scope: {}

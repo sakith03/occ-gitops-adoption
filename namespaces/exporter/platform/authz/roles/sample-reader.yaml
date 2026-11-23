@@ -8,11 +8,11 @@ metadata:
   namespace: exporter
 spec:
   actions:
-  - projecttype:view
-  - componenttype:view
-  - trait:view
-  - workflow:view
-  - dataplane:view
-  - workflowplane:view
-  - observabilityplane:view
+    - projecttype:view
+    - componenttype:view
+    - trait:view
+    - workflow:view
+    - dataplane:view
+    - workflowplane:view
+    - observabilityplane:view
   description: Read-only example role for platform definitions in the default namespace.

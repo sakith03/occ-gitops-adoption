@@ -17,7 +17,7 @@ spec:
     claim: groups
     value: developers
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: developer
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: developer
+      scope: {}

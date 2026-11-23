@@ -5,94 +5,91 @@ metadata:
   name: vertical-pod-autoscaler
 spec:
   creates:
-  - includeWhen: ${environmentConfigs.enabled}
-    targetPlane: dataplane
-    template:
-      apiVersion: autoscaling.k8s.io/v1
-      kind: VerticalPodAutoscaler
-      metadata:
-        labels: ${metadata.labels}
-        name: ${metadata.name}-${trait.instanceName}
-        namespace: ${metadata.namespace}
-      spec:
-        resourcePolicy:
-          containerPolicies:
-          - containerName: ${parameters.containerName}
-            controlledResources: ${parameters.controlledResources}
-            maxAllowed: |
-              ${(has(parameters.maxAllowed) &&
-                  ((has(parameters.maxAllowed.cpu) && parameters.maxAllowed.cpu != '') ||
-                   (has(parameters.maxAllowed.memory) && parameters.maxAllowed.memory != '')))
-                ? {
-                    "cpu": has(parameters.maxAllowed.cpu) && parameters.maxAllowed.cpu != '' ? parameters.maxAllowed.cpu : oc_omit(),
-                    "memory": has(parameters.maxAllowed.memory) && parameters.maxAllowed.memory != '' ? parameters.maxAllowed.memory : oc_omit()
-                  }
-                : oc_omit()}
-            minAllowed: |
-              ${(has(parameters.minAllowed) &&
-                  ((has(parameters.minAllowed.cpu) && parameters.minAllowed.cpu != '') ||
-                   (has(parameters.minAllowed.memory) && parameters.minAllowed.memory != '')))
-                ? {
-                    "cpu": has(parameters.minAllowed.cpu) && parameters.minAllowed.cpu != '' ? parameters.minAllowed.cpu : oc_omit(),
-                    "memory": has(parameters.minAllowed.memory) && parameters.minAllowed.memory != '' ? parameters.minAllowed.memory : oc_omit()
-                  }
-                : oc_omit()}
-        targetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: ${metadata.name}
-        updatePolicy:
-          updateMode: |
-            ${has(environmentConfigs.updateMode) ? environmentConfigs.updateMode : parameters.updateMode}
+    - includeWhen: ${environmentConfigs.enabled}
+      targetPlane: dataplane
+      template:
+        apiVersion: autoscaling.k8s.io/v1
+        kind: VerticalPodAutoscaler
+        metadata:
+          labels: ${metadata.labels}
+          name: ${metadata.name}-${trait.instanceName}
+          namespace: ${metadata.namespace}
+        spec:
+          resourcePolicy:
+            containerPolicies:
+              - containerName: ${parameters.containerName}
+                controlledResources: ${parameters.controlledResources}
+                maxAllowed: |
+                  ${(has(parameters.maxAllowed) &&
+                      ((has(parameters.maxAllowed.cpu) && parameters.maxAllowed.cpu != '') ||
+                       (has(parameters.maxAllowed.memory) && parameters.maxAllowed.memory != '')))
+                    ? {
+                        "cpu": has(parameters.maxAllowed.cpu) && parameters.maxAllowed.cpu != '' ? parameters.maxAllowed.cpu : oc_omit(),
+                        "memory": has(parameters.maxAllowed.memory) && parameters.maxAllowed.memory != '' ? parameters.maxAllowed.memory : oc_omit()
+                      }
+                    : oc_omit()}
+                minAllowed: |
+                  ${(has(parameters.minAllowed) &&
+                      ((has(parameters.minAllowed.cpu) && parameters.minAllowed.cpu != '') ||
+                       (has(parameters.minAllowed.memory) && parameters.minAllowed.memory != '')))
+                    ? {
+                        "cpu": has(parameters.minAllowed.cpu) && parameters.minAllowed.cpu != '' ? parameters.minAllowed.cpu : oc_omit(),
+                        "memory": has(parameters.minAllowed.memory) && parameters.minAllowed.memory != '' ? parameters.minAllowed.memory : oc_omit()
+                      }
+                    : oc_omit()}
+          targetRef:
+            apiVersion: apps/v1
+            kind: Deployment
+            name: ${metadata.name}
+          updatePolicy:
+            updateMode: |
+              ${has(environmentConfigs.updateMode) ? environmentConfigs.updateMode : parameters.updateMode}
   environmentConfigs:
     openAPIV3Schema:
       properties:
         enabled:
           default: true
-          description: Controls whether vertical autoscaling is active in this environment.
-            When disabled, no VerticalPodAutoscaler is created.
+          description: Controls whether vertical autoscaling is active in this environment. When disabled, no VerticalPodAutoscaler is created.
           type: boolean
           x-openchoreo-backstage-portal:
             ui:widget: radio
         updateMode:
           description: Optional per-environment override for the update mode.
           enum:
-          - "Off"
-          - Initial
-          - Recreate
-          - Auto
+            - "Off"
+            - Initial
+            - Recreate
+            - Auto
           type: string
           x-openchoreo-backstage-portal:
             ui:placeholder: Defaults to the value set in parameters
       type: object
       x-openchoreo-backstage-portal:
         ui:order:
-        - enabled
-        - updateMode
+          - enabled
+          - updateMode
   parameters:
     openAPIV3Schema:
       properties:
         containerName:
           default: '*'
-          description: Name of the container the recommendations apply to. Use '*'
-            to target every container in the pod.
+          description: Name of the container the recommendations apply to. Use '*' to target every container in the pod.
           title: Container name
           type: string
         controlledResources:
           default:
-          - cpu
-          - memory
+            - cpu
+            - memory
           description: Which compute resources the autoscaler manages for the container.
           items:
             enum:
-            - cpu
-            - memory
+              - cpu
+              - memory
             type: string
           title: Controlled resources
           type: array
         maxAllowed:
-          description: Upper bound on the resource requests the autoscaler may recommend.
-            Optional; when unset, no upper bound is enforced.
+          description: Upper bound on the resource requests the autoscaler may recommend. Optional; when unset, no upper bound is enforced.
           properties:
             cpu:
               title: CPU
@@ -108,11 +105,10 @@ spec:
           type: object
           x-openchoreo-backstage-portal:
             ui:order:
-            - cpu
-            - memory
+              - cpu
+              - memory
         minAllowed:
-          description: Lower bound on the resource requests the autoscaler may recommend.
-            Optional; when unset, no lower bound is enforced.
+          description: Lower bound on the resource requests the autoscaler may recommend. Optional; when unset, no lower bound is enforced.
           properties:
             cpu:
               title: CPU
@@ -128,26 +124,23 @@ spec:
           type: object
           x-openchoreo-backstage-portal:
             ui:order:
-            - cpu
-            - memory
+              - cpu
+              - memory
         updateMode:
           default: Auto
-          description: How the autoscaler applies its recommendations. 'Auto' and
-            'Recreate' evict and recreate pods to apply new resource requests, 'Initial'
-            applies them only when a pod is first created, and 'Off' only reports
-            recommendations without changing running pods.
+          description: How the autoscaler applies its recommendations. 'Auto' and 'Recreate' evict and recreate pods to apply new resource requests, 'Initial' applies them only when a pod is first created, and 'Off' only reports recommendations without changing running pods.
           enum:
-          - "Off"
-          - Initial
-          - Recreate
-          - Auto
+            - "Off"
+            - Initial
+            - Recreate
+            - Auto
           title: Update mode
           type: string
       type: object
       x-openchoreo-backstage-portal:
         ui:order:
-        - updateMode
-        - containerName
-        - controlledResources
-        - minAllowed
-        - maxAllowed
+          - updateMode
+          - containerName
+          - controlledResources
+          - minAllowed
+          - maxAllowed

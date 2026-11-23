@@ -13,11 +13,11 @@ metadata:
   name: cluster-reader
 spec:
   actions:
-  - clusterdataplane:view
-  - clusterworkflowplane:view
-  - clusterobservabilityplane:view
-  - clustercomponenttype:view
-  - clusterresourcetype:view
-  - clusterprojecttype:view
-  - clustertrait:view
-  - clusterworkflow:view
+    - clusterdataplane:view
+    - clusterworkflowplane:view
+    - clusterobservabilityplane:view
+    - clustercomponenttype:view
+    - clusterresourcetype:view
+    - clusterprojecttype:view
+    - clustertrait:view
+    - clusterworkflow:view

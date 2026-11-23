@@ -14,9 +14,9 @@ metadata:
   name: finops-agent
 spec:
   actions:
-  - component:view
-  - project:view
-  - namespace:view
-  - environment:view
-  - metrics:view
-  - alerts:view
+    - component:view
+    - project:view
+    - namespace:view
+    - environment:view
+    - metrics:view
+    - alerts:view

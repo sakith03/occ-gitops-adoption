@@ -17,7 +17,7 @@ spec:
     claim: client_id
     value: service_mcp_client
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: admin
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: admin
+      scope: {}

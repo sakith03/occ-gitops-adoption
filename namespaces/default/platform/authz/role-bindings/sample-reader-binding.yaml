@@ -12,7 +12,7 @@ spec:
     claim: groups
     value: openchoreo-sample-readers
   roleMappings:
-  - roleRef:
-      kind: AuthzRole
-      name: sample-reader
-    scope: {}
+    - roleRef:
+        kind: AuthzRole
+        name: sample-reader
+      scope: {}

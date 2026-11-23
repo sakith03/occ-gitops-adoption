@@ -2,8 +2,7 @@ apiVersion: openchoreo.dev/v1alpha1
 kind: DeploymentPipeline
 metadata:
   annotations:
-    openchoreo.dev/description: Standard deployment pipeline with dev, staging, and
-      prod environments
+    openchoreo.dev/description: Standard deployment pipeline with dev, staging, and prod environments
     openchoreo.dev/display-name: Default Pipeline
   labels:
     kustomize.toolkit.fluxcd.io/name: openchoreo-platform
@@ -13,15 +12,15 @@ metadata:
   namespace: default
 spec:
   promotionPaths:
-  - sourceEnvironmentRef:
-      kind: Environment
-      name: development
-    targetEnvironmentRefs:
-    - kind: Environment
-      name: staging
-  - sourceEnvironmentRef:
-      kind: Environment
-      name: staging
-    targetEnvironmentRefs:
-    - kind: Environment
-      name: production
+    - sourceEnvironmentRef:
+        kind: Environment
+        name: development
+      targetEnvironmentRefs:
+        - kind: Environment
+          name: staging
+    - sourceEnvironmentRef:
+        kind: Environment
+        name: staging
+      targetEnvironmentRefs:
+        - kind: Environment
+          name: production

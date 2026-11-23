@@ -18,7 +18,7 @@ spec:
     claim: client_id
     value: openchoreo-finops-agent
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: finops-agent
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: finops-agent
+      scope: {}

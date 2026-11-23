@@ -20,12 +20,12 @@ spec:
     name: gcp-buildpacks-builder
     parameters:
       buildEnv:
-      - name: NODE_ENV
-        value: evelopment
-      - name: GOOGLE_NODE_RUN_SCRIPTS
-        value: build
-      - name: GOOGLE_ENTRYPOINT
-        value: npm run preview -- --host 0.0.0.0 --port 8080 --strictPort
+        - name: NODE_ENV
+          value: evelopment
+        - name: GOOGLE_NODE_RUN_SCRIPTS
+          value: build
+        - name: GOOGLE_ENTRYPOINT
+          value: npm run preview -- --host 0.0.0.0 --port 8080 --strictPort
       repository:
         appPath: /Aisales/aisales_frontend
         revision:

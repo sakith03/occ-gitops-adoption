@@ -23,10 +23,10 @@ spec:
   workloadOverrides:
     container:
       env:
-      - key: ConnectionStrings__DefaultConnection
-        valueFrom:
-          secretKeyRef:
-            key: connectionString
-            name: backend-db-connection
-      - key: JwtSettings__Secret
-        value: '*Mahanama03'
+        - key: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              key: connectionString
+              name: backend-db-connection
+        - key: JwtSettings__Secret
+          value: '*Mahanama03'

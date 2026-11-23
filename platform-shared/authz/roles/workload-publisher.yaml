@@ -14,8 +14,8 @@ metadata:
   name: workload-publisher
 spec:
   actions:
-  - workload:create
-  - workload:update
-  - workload:view
-  - workflowrun:view
-  - workflowrun:update
+    - workload:create
+    - workload:update
+    - workload:view
+    - workflowrun:view
+    - workflowrun:update

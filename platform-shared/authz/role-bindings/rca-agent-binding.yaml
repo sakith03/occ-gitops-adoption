@@ -18,7 +18,7 @@ spec:
     claim: client_id
     value: openchoreo-rca-agent
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: rca-agent
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: rca-agent
+      scope: {}

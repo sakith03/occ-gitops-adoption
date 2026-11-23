@@ -8,17 +8,16 @@ metadata:
   name: dockerfile-builder
 spec:
   externalRefs:
-  - apiVersion: openchoreo.dev/v1alpha1
-    id: git-secret-reference
-    kind: SecretReference
-    name: ${parameters.repository.secretRef}
+    - apiVersion: openchoreo.dev/v1alpha1
+      id: git-secret-reference
+      kind: SecretReference
+      name: ${parameters.repository.secretRef}
   parameters:
     openAPIV3Schema:
       properties:
         buildArgs:
           default: []
-          description: 'Docker build arguments declared with ARG in the Dockerfile
-            (passed as --build-arg). Reference: https://docs.podman.io/en/stable/markdown/podman-build.1.html#build-arg-arg-value'
+          description: 'Docker build arguments declared with ARG in the Dockerfile (passed as --build-arg). Reference: https://docs.podman.io/en/stable/markdown/podman-build.1.html#build-arg-arg-value'
           items:
             properties:
               name:
@@ -28,14 +27,13 @@ spec:
                 description: Build argument value
                 type: string
             required:
-            - name
-            - value
+              - name
+              - value
             type: object
           type: array
         buildEnv:
           default: []
-          description: 'Environment variables available during the build (passed as
-            --env to podman build). Reference: https://docs.podman.io/en/stable/markdown/podman-build.1.html#env-env-value'
+          description: 'Environment variables available during the build (passed as --env to podman build). Reference: https://docs.podman.io/en/stable/markdown/podman-build.1.html#env-env-value'
           items:
             properties:
               name:
@@ -45,8 +43,8 @@ spec:
                 description: Environment variable value
                 type: string
             required:
-            - name
-            - value
+              - name
+              - value
             type: object
           type: array
         docker:
@@ -80,8 +78,7 @@ spec:
                   x-openchoreo-component-parameter-repository-branch: true
                 commit:
                   default: ""
-                  description: Git commit SHA or reference (optional, defaults to
-                    latest)
+                  description: Git commit SHA or reference (optional, defaults to latest)
                   type: string
                   x-openchoreo-component-parameter-repository-commit: true
               type: object
@@ -95,63 +92,62 @@ spec:
               type: string
               x-openchoreo-component-parameter-repository-url: true
           required:
-          - url
+            - url
           type: object
       required:
-      - repository
+        - repository
       type: object
   resources:
-  - id: git-secret
-    includeWhen: ${has(parameters.repository.secretRef) && parameters.repository.secretRef
-      != ""}
-    template:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      metadata:
-        name: ${metadata.workflowRunName}-git-secret
-        namespace: ${metadata.namespace}
-      spec:
-        data: |
-          ${externalRefs['git-secret-reference'].spec.data.map(secret, {
-            "secretKey": secret.secretKey,
-            "remoteRef": {
-              "key": secret.remoteRef.key,
-              "property": has(secret.remoteRef.property) && secret.remoteRef.property != "" ? secret.remoteRef.property : oc_omit()
-            }
-          })}
-        refreshInterval: 15s
-        secretStoreRef:
-          kind: ClusterSecretStore
-          name: ${workflowplane.secretStore}
-        target:
-          creationPolicy: Owner
+    - id: git-secret
+      includeWhen: ${has(parameters.repository.secretRef) && parameters.repository.secretRef != ""}
+      template:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        metadata:
           name: ${metadata.workflowRunName}-git-secret
-          template:
-            type: ${externalRefs['git-secret-reference'].spec.template.type}
-  - id: registry-push-secret
-    template:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      metadata:
-        name: ${metadata.workflowRunName}-registry-push-secret
-        namespace: ${metadata.namespace}
-      spec:
-        data:
-        - remoteRef:
-            key: registry-push-secret
-            property: value
-          secretKey: registrysecret
-        refreshInterval: 15s
-        secretStoreRef:
-          kind: ClusterSecretStore
-          name: ${workflowplane.secretStore}
-        target:
-          creationPolicy: Owner
+          namespace: ${metadata.namespace}
+        spec:
+          data: |
+            ${externalRefs['git-secret-reference'].spec.data.map(secret, {
+              "secretKey": secret.secretKey,
+              "remoteRef": {
+                "key": secret.remoteRef.key,
+                "property": has(secret.remoteRef.property) && secret.remoteRef.property != "" ? secret.remoteRef.property : oc_omit()
+              }
+            })}
+          refreshInterval: 15s
+          secretStoreRef:
+            kind: ClusterSecretStore
+            name: ${workflowplane.secretStore}
+          target:
+            creationPolicy: Owner
+            name: ${metadata.workflowRunName}-git-secret
+            template:
+              type: ${externalRefs['git-secret-reference'].spec.template.type}
+    - id: registry-push-secret
+      template:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        metadata:
           name: ${metadata.workflowRunName}-registry-push-secret
-          template:
-            data:
-              .dockerconfigjson: '{{ .registrysecret | toString }}'
-            type: kubernetes.io/dockerconfigjson
+          namespace: ${metadata.namespace}
+        spec:
+          data:
+            - remoteRef:
+                key: registry-push-secret
+                property: value
+              secretKey: registrysecret
+          refreshInterval: 15s
+          secretStoreRef:
+            kind: ClusterSecretStore
+            name: ${workflowplane.secretStore}
+          target:
+            creationPolicy: Owner
+            name: ${metadata.workflowRunName}-registry-push-secret
+            template:
+              data:
+                .dockerconfigjson: '{{ .registrysecret | toString }}'
+              type: kubernetes.io/dockerconfigjson
   runTemplate:
     apiVersion: argoproj.io/v1alpha1
     kind: Workflow
@@ -161,98 +157,98 @@ spec:
     spec:
       arguments:
         parameters:
-        - name: component-name
-          value: ${metadata.labels['openchoreo.dev/component']}
-        - name: project-name
-          value: ${metadata.labels['openchoreo.dev/project']}
-        - name: workflowrun-name
-          value: ${metadata.workflowRunName}
-        - name: namespace-name
-          value: ${metadata.namespaceName}
-        - name: git-repo
-          value: ${parameters.repository.url}
-        - name: branch
-          value: ${parameters.repository.revision.branch}
-        - name: commit
-          value: ${parameters.repository.revision.commit}
-        - name: app-path
-          value: ${parameters.repository.appPath}
-        - name: docker-context
-          value: ${parameters.docker.context}
-        - name: dockerfile-path
-          value: ${parameters.docker.filePath}
-        - name: build-env
-          value: ${parameters.buildEnv}
-        - name: build-args
-          value: ${parameters.buildArgs}
-        - name: image-name
-          value: ${metadata.namespaceName}-${metadata.labels['openchoreo.dev/project']}-${metadata.labels['openchoreo.dev/component']}
-        - name: image-tag
-          value: v1
-        - name: git-secret
-          value: ${metadata.workflowRunName}-git-secret
-        - name: registry-push-secret
-          value: ${metadata.workflowRunName}-registry-push-secret
+          - name: component-name
+            value: ${metadata.labels['openchoreo.dev/component']}
+          - name: project-name
+            value: ${metadata.labels['openchoreo.dev/project']}
+          - name: workflowrun-name
+            value: ${metadata.workflowRunName}
+          - name: namespace-name
+            value: ${metadata.namespaceName}
+          - name: git-repo
+            value: ${parameters.repository.url}
+          - name: branch
+            value: ${parameters.repository.revision.branch}
+          - name: commit
+            value: ${parameters.repository.revision.commit}
+          - name: app-path
+            value: ${parameters.repository.appPath}
+          - name: docker-context
+            value: ${parameters.docker.context}
+          - name: dockerfile-path
+            value: ${parameters.docker.filePath}
+          - name: build-env
+            value: ${parameters.buildEnv}
+          - name: build-args
+            value: ${parameters.buildArgs}
+          - name: image-name
+            value: ${metadata.namespaceName}-${metadata.labels['openchoreo.dev/project']}-${metadata.labels['openchoreo.dev/component']}
+          - name: image-tag
+            value: v1
+          - name: git-secret
+            value: ${metadata.workflowRunName}-git-secret
+          - name: registry-push-secret
+            value: ${metadata.workflowRunName}-registry-push-secret
       entrypoint: build-workflow
       serviceAccountName: workflow-sa
       templates:
-      - name: build-workflow
-        steps:
-        - - name: checkout-source
-            templateRef:
-              clusterScope: true
-              name: checkout-source
-              template: checkout
-        - - arguments:
-              parameters:
-              - name: git-revision
-                value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
-              - name: build-env
-                value: '{{workflow.parameters.build-env}}'
-              - name: build-args
-                value: '{{workflow.parameters.build-args}}'
-            name: build-image
-            templateRef:
-              clusterScope: true
-              name: containerfile-build
-              template: build-image
-        - - arguments:
-              parameters:
-              - name: git-revision
-                value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
-            name: publish-image
-            templateRef:
-              clusterScope: true
-              name: publish-image
-              template: publish-image
-        - - arguments:
-              parameters:
-              - name: image
-                value: '{{steps.publish-image.outputs.parameters.image}}'
-              - name: run-name
-                value: '{{workflow.parameters.workflowrun-name}}'
-              - name: source-commit
-                value: '{{steps.checkout-source.outputs.parameters.commit-sha}}'
-              - name: source-branch
-                value: '{{steps.checkout-source.outputs.parameters.source-branch}}'
-              - name: source-repository
-                value: '{{workflow.parameters.git-repo}}'
-              - name: source-authored-at
-                value: '{{steps.checkout-source.outputs.parameters.commit-authored-at}}'
-            name: generate-workload-cr
-            templateRef:
-              clusterScope: true
-              name: generate-workload
-              template: generate-workload-cr
+        - name: build-workflow
+          steps:
+            - - name: checkout-source
+                templateRef:
+                  clusterScope: true
+                  name: checkout-source
+                  template: checkout
+            - - arguments:
+                  parameters:
+                    - name: git-revision
+                      value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
+                    - name: build-env
+                      value: '{{workflow.parameters.build-env}}'
+                    - name: build-args
+                      value: '{{workflow.parameters.build-args}}'
+                name: build-image
+                templateRef:
+                  clusterScope: true
+                  name: containerfile-build
+                  template: build-image
+            - - arguments:
+                  parameters:
+                    - name: git-revision
+                      value: '{{steps.checkout-source.outputs.parameters.git-revision}}'
+                name: publish-image
+                templateRef:
+                  clusterScope: true
+                  name: publish-image
+                  template: publish-image
+            - - arguments:
+                  parameters:
+                    - name: image
+                      value: '{{steps.publish-image.outputs.parameters.image}}'
+                    - name: run-name
+                      value: '{{workflow.parameters.workflowrun-name}}'
+                    - name: source-commit
+                      value: '{{steps.checkout-source.outputs.parameters.commit-sha}}'
+                    - name: source-branch
+                      value: '{{steps.checkout-source.outputs.parameters.source-branch}}'
+                    - name: source-repository
+                      value: '{{workflow.parameters.git-repo}}'
+                    - name: source-authored-at
+                      value: '{{steps.checkout-source.outputs.parameters.commit-authored-at}}'
+                name: generate-workload-cr
+                templateRef:
+                  clusterScope: true
+                  name: generate-workload
+                  template: generate-workload-cr
       volumeClaimTemplates:
-      - metadata:
-          name: workspace
-        spec:
-          accessModes:
-          - ReadWriteOnce
-          resources:
-            requests:
-              storage: 2Gi
+        - metadata:
+            name: workspace
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 2Gi
   ttlAfterCompletion: 1d
   workflowPlaneRef:
     kind: ClusterWorkflowPlane

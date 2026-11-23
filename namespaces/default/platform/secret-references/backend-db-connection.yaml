@@ -11,10 +11,10 @@ metadata:
   namespace: default
 spec:
   data:
-  - remoteRef:
-      key: secret/default/generic/backend-db-connection
-      property: connectionString
-    secretKey: connectionString
+    - remoteRef:
+        key: secret/default/generic/backend-db-connection
+        property: connectionString
+      secretKey: connectionString
   refreshInterval: 1h0m0s
   targetPlane:
     kind: ClusterDataPlane

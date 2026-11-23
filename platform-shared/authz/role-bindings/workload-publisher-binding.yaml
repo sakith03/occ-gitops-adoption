@@ -18,7 +18,7 @@ spec:
     claim: client_id
     value: openchoreo-workload-publisher-client
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: workload-publisher
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: workload-publisher
+      scope: {}

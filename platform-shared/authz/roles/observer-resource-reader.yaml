@@ -14,8 +14,8 @@ metadata:
   name: observer-resource-reader
 spec:
   actions:
-  - component:view
-  - project:view
-  - namespace:view
-  - environment:view
-  - releaseline:view
+    - component:view
+    - project:view
+    - namespace:view
+    - environment:view
+    - releaseline:view

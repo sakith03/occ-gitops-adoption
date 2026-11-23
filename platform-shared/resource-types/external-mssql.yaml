@@ -13,23 +13,23 @@ spec:
           default: "1433"
           type: string
       required:
-      - host
+        - host
       type: object
   outputs:
-  - name: host
-    value: ${environmentConfigs.host}
-  - name: port
-    value: ${environmentConfigs.port}
-  - name: database
-    value: ${parameters.database}
-  - name: username
-    secretKeyRef:
-      key: username
-      name: external-mssql-credentials
-  - name: password
-    secretKeyRef:
-      key: password
-      name: external-mssql-credentials
+    - name: host
+      value: ${environmentConfigs.host}
+    - name: port
+      value: ${environmentConfigs.port}
+    - name: database
+      value: ${parameters.database}
+    - name: username
+      secretKeyRef:
+        key: username
+        name: external-mssql-credentials
+    - name: password
+      secretKeyRef:
+        key: password
+        name: external-mssql-credentials
   parameters:
     openAPIV3Schema:
       properties:
@@ -38,17 +38,17 @@ spec:
           type: string
       type: object
   resources:
-  - id: external-db-reference
-    template:
-      apiVersion: v1
-      data:
-        connectionType: external-mssql
-        database: ${parameters.database}
-        host: ${environmentConfigs.host}
-        port: ${environmentConfigs.port}
-      kind: ConfigMap
-      metadata:
-        labels: ${metadata.labels}
-        name: ${metadata.name}-reference
-        namespace: ${metadata.namespace}
+    - id: external-db-reference
+      template:
+        apiVersion: v1
+        data:
+          connectionType: external-mssql
+          database: ${parameters.database}
+          host: ${environmentConfigs.host}
+          port: ${environmentConfigs.port}
+        kind: ConfigMap
+        metadata:
+          labels: ${metadata.labels}
+          name: ${metadata.name}-reference
+          namespace: ${metadata.namespace}
   retainPolicy: Delete

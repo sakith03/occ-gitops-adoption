@@ -16,7 +16,7 @@ spec:
       port: 8080
       type: HTTP
       visibility:
-      - external
+        - external
   owner:
     componentName: vocalyx-frontend
     projectName: project01

@@ -14,22 +14,22 @@ metadata:
   name: rca-agent
 spec:
   actions:
-  - component:view
-  - releaseline:view
-  - project:view
-  - namespace:view
-  - componentrelease:view
-  - releasebinding:view
-  - resource:view
-  - resourcereleasebinding:view
-  - workflowrun:view
-  - environment:view
-  - workload:view
-  - trait:view
-  - logs:view
-  - events:view
-  - metrics:view
-  - alerts:view
-  - incidents:view
-  - incidents:update
-  - traces:view
+    - component:view
+    - releaseline:view
+    - project:view
+    - namespace:view
+    - componentrelease:view
+    - releasebinding:view
+    - resource:view
+    - resourcereleasebinding:view
+    - workflowrun:view
+    - environment:view
+    - workload:view
+    - trait:view
+    - logs:view
+    - events:view
+    - metrics:view
+    - alerts:view
+    - incidents:view
+    - incidents:update
+    - traces:view

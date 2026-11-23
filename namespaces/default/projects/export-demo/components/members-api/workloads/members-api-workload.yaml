@@ -475,7 +475,7 @@ spec:
         type: openapi
       type: HTTP
       visibility:
-      - external
+        - external
   owner:
     componentName: members-api
     projectName: export-demo

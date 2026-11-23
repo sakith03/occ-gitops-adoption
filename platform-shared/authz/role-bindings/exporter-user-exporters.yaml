@@ -9,7 +9,7 @@ spec:
     claim: groups
     value: exporters
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: exporter
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: exporter
+      scope: {}

@@ -13,15 +13,15 @@ metadata:
   name: namespace-reader
 spec:
   actions:
-  - namespace:view
-  - environment:view
-  - deploymentpipeline:view
-  - dataplane:view
-  - workflowplane:view
-  - observabilityplane:view
-  - componenttype:view
-  - resourcetype:view
-  - projecttype:view
-  - trait:view
-  - workflow:view
-  - secretreference:view
+    - namespace:view
+    - environment:view
+    - deploymentpipeline:view
+    - dataplane:view
+    - workflowplane:view
+    - observabilityplane:view
+    - componenttype:view
+    - resourcetype:view
+    - projecttype:view
+    - trait:view
+    - workflow:view
+    - secretreference:view

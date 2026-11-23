@@ -18,7 +18,7 @@ spec:
     claim: client_id
     value: openchoreo-observer-resource-reader-client
   roleMappings:
-  - roleRef:
-      kind: ClusterAuthzRole
-      name: observer-resource-reader
-    scope: {}
+    - roleRef:
+        kind: ClusterAuthzRole
+        name: observer-resource-reader
+      scope: {}
