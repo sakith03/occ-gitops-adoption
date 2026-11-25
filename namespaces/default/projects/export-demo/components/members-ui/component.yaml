@@ -12,7 +12,8 @@ spec:
     name: deployment/web-application
   owner:
     projectName: export-demo
-  parameters: {}
+  parameters:
+    "<<": example
   workflow:
     kind: ClusterWorkflow
     name: dockerfile-builder

@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: openchoreo-control-plane
     app.kubernetes.io/part-of: openchoreo
-    app.kubernetes.io/version: v1.4.0-m.2
-    helm.sh/chart: openchoreo-control-plane-1.4.0-m.2
+    app.kubernetes.io/version: latest-dev
+    helm.sh/chart: openchoreo-control-plane-0.0.0-latest-dev
     openchoreo.io/bootstrap: "true"
   name: platform-engineer
 spec:
@@ -53,6 +53,16 @@ spec:
     - resourcereleasebinding:create
     - resourcereleasebinding:update
     - resourcereleasebinding:delete
+    - endpoint:view
+    - endpoint:create
+    - endpoint:update
+    - endpoint:delete
+    - endpointrelease:view
+    - endpointrelease:delete
+    - endpointreleasebinding:view
+    - endpointreleasebinding:create
+    - endpointreleasebinding:update
+    - endpointreleasebinding:delete
     - projectreleasebinding:view
     - projectreleasebinding:create
     - projectreleasebinding:update
@@ -81,6 +91,10 @@ spec:
     - resourcetype:create
     - resourcetype:update
     - resourcetype:delete
+    - endpointtype:view
+    - endpointtype:create
+    - endpointtype:update
+    - endpointtype:delete
     - projecttype:view
     - projecttype:create
     - projecttype:update
@@ -118,6 +132,7 @@ spec:
     - events:view
     - metrics:view
     - traces:view
+    - traces:rawquery
     - alerts:view
     - incidents:view
     - rcareport:view
@@ -126,6 +141,8 @@ spec:
     - finopsreport:update
     - finops:view
     - deliveryinsights:view
+    - scorecards:view
+    - scorecards:manage
     - portal-assistant:invoke
     - observabilityalertsnotificationchannel:view
     - observabilityalertsnotificationchannel:create
@@ -151,6 +168,10 @@ spec:
     - clusterresourcetype:create
     - clusterresourcetype:update
     - clusterresourcetype:delete
+    - clusterendpointtype:view
+    - clusterendpointtype:create
+    - clusterendpointtype:update
+    - clusterendpointtype:delete
     - clusterprojecttype:view
     - clusterprojecttype:create
     - clusterprojecttype:update

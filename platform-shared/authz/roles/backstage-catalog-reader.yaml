@@ -7,22 +7,28 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: openchoreo-control-plane
     app.kubernetes.io/part-of: openchoreo
-    app.kubernetes.io/version: v1.4.0-m.2
-    helm.sh/chart: openchoreo-control-plane-1.4.0-m.2
+    app.kubernetes.io/version: latest-dev
+    helm.sh/chart: openchoreo-control-plane-0.0.0-latest-dev
     openchoreo.io/bootstrap: "true"
     openchoreo.io/system: "true"
   name: backstage-catalog-reader
 spec:
   actions:
     - component:view
+    - componentrelease:view
     - releaseline:view
+    - releasebinding:view
     - componenttype:view
     - resource:view
     - resourcerelease:view
     - projectrelease:view
     - resourcereleasebinding:view
+    - endpoint:view
+    - endpointrelease:view
+    - endpointreleasebinding:view
     - projectreleasebinding:view
     - resourcetype:view
+    - endpointtype:view
     - projecttype:view
     - namespace:view
     - project:view
@@ -33,13 +39,17 @@ spec:
     - workflowplane:view
     - clusterworkflowplane:view
     - workflow:view
+    - workflowrun:view
     - deploymentpipeline:view
     - observabilityplane:view
     - clusterobservabilityplane:view
     - clusterdataplane:view
     - clustercomponenttype:view
     - clusterresourcetype:view
+    - clusterendpointtype:view
     - clusterprojecttype:view
     - clustertrait:view
     - clusterworkflow:view
     - observabilityalertsnotificationchannel:view
+    - alerts:view
+    - incidents:view

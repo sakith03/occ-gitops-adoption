@@ -1,7 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterAuthzRoleBinding
 metadata:
-  annotations: {}
   name: exporter-user-exporters
 spec:
   effect: allow

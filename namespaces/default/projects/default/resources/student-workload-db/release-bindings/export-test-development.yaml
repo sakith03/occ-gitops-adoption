@@ -4,6 +4,8 @@ metadata:
   labels:
     kustomize.toolkit.fluxcd.io/name: openchoreo-projects
     kustomize.toolkit.fluxcd.io/namespace: flux-system
+    openchoreo.dev/project: default
+    openchoreo.dev/resource: student-workload-db
   name: export-test-development
   namespace: default
 spec:

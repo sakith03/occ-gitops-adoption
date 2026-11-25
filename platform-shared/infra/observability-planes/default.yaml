@@ -1,7 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ClusterObservabilityPlane
 metadata:
-  annotations: {}
   name: default
 spec:
   clusterAgent:

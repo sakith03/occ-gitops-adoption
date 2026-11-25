@@ -1,6 +1,7 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ResourceRelease
 metadata:
+  annotations: {}
   labels:
     kustomize.toolkit.fluxcd.io/name: openchoreo-projects
     kustomize.toolkit.fluxcd.io/namespace: flux-system

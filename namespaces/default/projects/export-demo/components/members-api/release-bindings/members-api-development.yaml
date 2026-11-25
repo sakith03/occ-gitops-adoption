@@ -1,7 +1,9 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: ReleaseBinding
 metadata:
-  annotations: {}
+  labels:
+    openchoreo.dev/component: members-api
+    openchoreo.dev/project: export-demo
   name: members-api-development
   namespace: default
 spec:
@@ -11,3 +13,8 @@ spec:
     projectName: export-demo
   releaseName: members-api-55f557d775
   state: Active
+  workloadOverrides:
+    container:
+      env:
+        - key: foo
+          value: bar

@@ -1,7 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: Component
 metadata:
-  annotations: {}
   labels:
     openchoreo.dev/project: export-demo
   name: members-api

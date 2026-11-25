@@ -1,7 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 kind: Project
 metadata:
-  annotations: {}
   name: export-demo
   namespace: default
 spec:
